@@ -33,6 +33,9 @@
     linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
   z-index: -1;
 }
+#logo{
+  text-align: right;
+}
 
 /* preview box */
 .preview-card {
