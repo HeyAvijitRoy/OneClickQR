@@ -1,0 +1,59 @@
+/* ====== brand palette ====== */
+:root {
+  --primary: #1c7ed6;
+  --primary-dark: #1864ab;
+  --accent: #28a745;
+  --bg-body: #f5f7fa;
+}
+
+/* reuse bootstrap var override */
+.text-primary { color: var(--primary) !important; }
+.btn-generate {
+  background: var(--accent);
+  border: none;
+}
+.btn-generate:hover { background: #23913d; }
+
+/* hero section */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 30% 20%,
+      rgba(28,126,214,0.35) 0,
+      rgba(28,126,214,0) 70%
+    ),
+    linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
+  z-index: -1;
+}
+
+/* preview box */
+.preview-card {
+  background: #ffffff;
+}
+.qr-preview {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  border: 1px solid #e3e6ea;
+  background: #fafbfc;
+}
+
+/* accordion tweak */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(28,126,214,0.1);
+  color: var(--primary);
+}
+
+/* footer */
+.footer a { color: var(--primary-dark); }
+.footer a:hover { text-decoration: underline; }
