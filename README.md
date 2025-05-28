@@ -33,7 +33,7 @@
 3. **View the live demo**
 
    * GitHub Pages: [https://arkabyo.github.io/OneClickQR/](https://arkabyo.github.io/OneClickQR/)
-   * Custom Domain: [http://oneclickqr.com/](http://oneclickqr.com/)
+   * Custom Domain: [https://www.oneclickqr.com/](https://www.oneclickqr.com/)
 
 ---
 
