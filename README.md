@@ -1,6 +1,6 @@
 # OneClickQR
 
-[![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-blue)](https://arkabyo.github.io/OneClickQR/)
+[![Visit our website](https://img.shields.io/badge/website-blue)](https://www.oneclickqr.com/)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 **Free, Instant QR Code Generator** that runs 100% client-side—no backend, no signup required. Generate high-resolution QR codes for URLs, vCards, text, email, Wi-Fi, and more with transparent PNG or SVG downloads.
