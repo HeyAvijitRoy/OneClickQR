@@ -23,7 +23,7 @@
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/arkabyo/OneClickQR.git
+   git clone https://github.com/heyavijitroy/OneClickQR.git
    cd OneClickQR
    ```
 2. **Open locally**
@@ -32,7 +32,7 @@
    * Example: `npx serve .`
 3. **View the live demo**
 
-   * GitHub Pages: [https://arkabyo.github.io/OneClickQR/](https://arkabyo.github.io/OneClickQR/)
+   * GitHub Pages: [https://heyavijitroy.github.io/OneClickQR/](https://heyavijitroy.github.io/OneClickQR/)
    * Custom Domain: [https://www.oneclickqr.com/](https://www.oneclickqr.com/)
 
 ---
