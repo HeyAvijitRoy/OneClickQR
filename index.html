@@ -3,14 +3,18 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Free QR Generator – Instant QR Code Maker Online | OneClickQR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="Generate custom QR codes instantly for URLs, vCards, text, email, Wi-Fi and more. Free, no signup required, mobile-friendly QR code maker with high-resolution downloads and customizable styles." 
-  />
-  <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Free QR Generator – OneClickQR" />
-  <meta property="og:description" content="Create free, high-resolution QR codes for URLs, vCards, text, email, Wi-Fi & more—100% Free, no signup." />
+  <title>OneClickQR | Free QR Code Generator for URLs, Wi-Fi, vCards & More</title>
+  <meta name="description" content="Create modern QR codes in seconds with OneClickQR. Generate high-resolution PNG and SVG codes for links, text, email, Wi-Fi, and contact cards without signup or tracking." />
+  <meta name="keywords" content="QR code generator, free QR code maker, QR code for URL, Wi-Fi QR code, vCard QR code, SVG QR code, PNG QR download" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="application-name" content="OneClickQR" />
+  <meta name="apple-mobile-web-app-title" content="OneClickQR" />
+  <link rel="canonical" href="https://www.oneclickqr.com/" />
+
+  <meta property="og:title" content="OneClickQR | Free QR Code Generator" />
+  <meta property="og:description" content="Generate polished, high-resolution QR codes for links, text, email, Wi-Fi and contact cards in seconds." />
   <meta property="og:url" content="https://www.oneclickqr.com/" />
   <meta property="og:site_name" content="OneClickQR" />
   <meta property="og:type" content="website" />
@@ -18,269 +22,682 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@AvijitRoyKabyo" />
-  <meta name="twitter:title" content="Free QR Generator – OneClickQR" />
-  <meta name="twitter:description" content="Generate free QR codes in seconds—no signup, mobile-friendly, and fully customizable." />
+  <meta name="twitter:title" content="OneClickQR | Free QR Code Generator" />
+  <meta name="twitter:description" content="Create modern QR codes with PNG and SVG downloads, instant preview, and no signup required." />
   <meta name="twitter:image" content="https://www.oneclickqr.com/assets/og-image.png" />
   <meta name="twitter:url" content="https://www.oneclickqr.com/" />
 
-  <!-- Core CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Icons & Favicons -->
-  <link rel="stylesheet"
-    href="css/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="icon" href="favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
 
-  <!-- QRCode.js (canvas) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "OneClickQR",
+    "url": "https://www.oneclickqr.com/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "description": "A free client-side QR code generator for links, text, email, Wi-Fi, and contact cards.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is OneClickQR free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. OneClickQR is free to use and generates static QR codes directly in your browser without signup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the QR data leave my device?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. QR generation happens client-side, so your content stays in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download PNG and SVG files?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can download a high-resolution PNG or a scalable SVG after generating a code."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can I encode in a QR code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can encode URLs, plain text, email messages, vCards, and Wi-Fi connection details."
+        }
+      }
+    ]
+  }
+  </script>
+
   <script src="library/qrcode.min.js"></script>
   <script>
-    // Save canvas version before SVG lib overwrites window.QRCode
     window.QRCodeCanvas = window.QRCode;
   </script>
-
-  <!-- QRCode-SVG -->
   <script src="library/svg-qrcode.min.js"></script>
   <script>
-    // Alias SVG version
     window.QRCodeSVG = window.QRCode;
-    window.QRCode    = window.QRCodeCanvas;
+    window.QRCode = window.QRCodeCanvas;
   </script>
-  
-  <!-- Google tag (gtag.js) -->
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PW41FKZWC4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-PW41FKZWC4');
   </script>
 </head>
 
 <body>
-  <!-- HERO -->
-  <header class="hero text-center text-lg-start">
-    <div class="container position-relative z-1 py-5">
-      <div class="row align-items-center g-4">
+  <a class="skip-link" href="#generator">Skip to generator</a>
+
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="container position-relative py-5 py-lg-6">
+      <div class="row align-items-center g-5">
         <div class="col-lg-6">
-          <h1 class="display-4 fw-bold text-white mb-3">Free QR Code Generator</h1>
-          <p class="lead text-white-50">
-            Create high-resolution QR codes for <strong>URLs, contacts, Wi-Fi, email, text &amp; more</strong> – free, no signup, works on any device.
+          <span class="eyebrow mb-3 d-inline-flex align-items-center gap-2">
+            <i class="bi bi-stars"></i>
+            Free client-side QR generator
+          </span>
+          <h1 class="display-4 fw-bold text-white mb-3">Make QR codes that look good and convert better.</h1>
+          <p class="hero-copy text-white-75 mb-4">
+            Build polished QR codes for links, contact cards, Wi-Fi access, email, and plain text. OneClickQR gives you a modern preview, instant downloads, and privacy-first generation with no signup.
           </p>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#generator" class="btn btn-light btn-lg hero-btn-primary">
+              <i class="bi bi-qr-code me-2"></i> Start generating
+            </a>
+            <a href="#how-it-works" class="btn btn-outline-light btn-lg hero-btn-secondary">
+              Learn how it works
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-pill"><strong>100%</strong><span>Client-side</span></div>
+            <div class="stat-pill"><strong>PNG + SVG</strong><span>Instant download</span></div>
+            <div class="stat-pill"><strong>No signup</strong><span>Privacy-first</span></div>
+          </div>
         </div>
-        <div class="col-lg-6 d-none d-lg-block" id="logo">
-          <img src="assets/hero-qr.svg" alt="Illustrated QR code" class="w-50" />
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="hero-art card-surface">
+            <img src="assets/hero-qr.svg" alt="Stylized QR code illustration" class="img-fluid" />
+            <div class="hero-art-meta">
+              <span><i class="bi bi-lightning-charge-fill"></i> Fast preview</span>
+              <span><i class="bi bi-shield-check"></i> Private by design</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="hero-bg"></div>
   </header>
 
-  <!-- MAIN -->
-  <main class="container my-5">
-    <div class="row g-lg-5">
-      <!-- Generator -->
-      <section class="col-lg-7 mb-4">
-        <div class="card shadow-sm border-0 p-4">
-          <h2 class="h4 fw-semibold text-primary mb-4">Generate your QR code</h2>
-          <form id="qrForm" novalidate>
-            <div class="mb-4">
-              <label class="form-label fw-semibold" for="type">Choose content type</label>
-              <select id="type" class="form-select">
-                <option value="URL">URL / Link</option>
-                <option value="TEXT">Plain Text</option>
-                <option value="EMAIL">Email</option>
-                <option value="VCARD">vCard / Contact</option>
-                <option value="WIFI">Wi-Fi</option>
-              </select>
+  <main class="page-shell">
+    <section class="container overlap-section" id="generator">
+      <div class="row g-4 align-items-stretch">
+        <section class="col-lg-7">
+          <div class="card generator-card card-surface h-100">
+            <div class="card-body p-4 p-lg-5">
+              <div class="section-heading mb-4">
+                <span class="section-kicker">Generator</span>
+                <h2 class="h3 mb-2">Create a QR code in a few seconds</h2>
+                <p class="text-muted mb-0">Choose a content type, fill in the details, and download a clean, production-ready QR code.</p>
+              </div>
+              <form id="qrForm" novalidate>
+                <div class="mb-4">
+                  <label class="form-label fw-semibold" for="type">Content type</label>
+                  <select id="type" class="form-select form-select-lg">
+                    <option value="URL">URL / Link</option>
+                    <option value="TEXT">Plain Text</option>
+                    <option value="EMAIL">Email</option>
+                    <option value="VCARD">vCard / Contact</option>
+                    <option value="WIFI">Wi-Fi</option>
+                  </select>
+                </div>
+
+                <div id="fields">
+                  <div class="mb-3 field-group" data-type="URL">
+                    <div class="campaign-templates mb-4">
+                      <div class="form-label fw-semibold mb-2">Campaign templates</div>
+                      <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm template-btn" data-template="google-ads">Google Ads</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm template-btn" data-template="ga4">GA4 Campaign</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm template-btn" data-template="linkedin">LinkedIn</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm template-btn" data-template="newsletter">Newsletter</button>
+                      </div>
+                    </div>
+                    <label for="url" class="form-label">Landing page or tracking link</label>
+                    <input id="url" name="url" type="url" class="form-control form-control-lg" placeholder="https://example.com" autocomplete="url">
+                    <div class="form-check form-switch mt-3">
+                      <input id="trackEnable" name="trackEnable" class="form-check-input" type="checkbox">
+                      <label class="form-check-label fw-semibold" for="trackEnable">Add tracking tags to this URL</label>
+                    </div>
+                    <div id="trackingPanel" class="tracking-panel d-none mt-3">
+                      <div class="tracking-note mb-3">
+                        Use UTM-style tags for Google Analytics, Matomo, Plausible, and similar tools. Existing query parameters are preserved.
+                      </div>
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label for="utmSource" class="form-label">utm_source</label>
+                          <input id="utmSource" name="utmSource" type="text" class="form-control" placeholder="google">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="utmMedium" class="form-label">utm_medium</label>
+                          <input id="utmMedium" name="utmMedium" type="text" class="form-control" placeholder="qr">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="utmCampaign" class="form-label">utm_campaign</label>
+                          <input id="utmCampaign" name="utmCampaign" type="text" class="form-control" placeholder="summer-sale-2026">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="utmContent" class="form-label">utm_content</label>
+                          <input id="utmContent" name="utmContent" type="text" class="form-control" placeholder="poster-a">
+                        </div>
+                        <div class="col-12">
+                          <label for="utmTerm" class="form-label">utm_term</label>
+                          <input id="utmTerm" name="utmTerm" type="text" class="form-control" placeholder="event-booth">
+                        </div>
+                        <div class="col-12">
+                          <label for="customParams" class="form-label">Custom query parameters</label>
+                          <textarea id="customParams" name="customParams" class="form-control" rows="3" placeholder="ref=homepage\nchannel=qr"></textarea>
+                          <div class="form-text">One key=value pair per line. Lines starting with # are ignored.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="final-url-preview mt-3">
+                      <label for="finalUrlPreview" class="form-label fw-semibold">Final URL preview</label>
+                      <textarea id="finalUrlPreview" class="form-control final-url-box" rows="3" readonly placeholder="Your final URL will appear here."></textarea>
+                      <div class="form-text">This is the exact URL that will be encoded into the QR code.</div>
+                      <div class="form-check form-switch mt-3">
+                        <input id="embedMainUrl" name="embedMainUrl" class="form-check-input" type="checkbox">
+                        <label class="form-check-label fw-semibold" for="embedMainUrl">Embed the cleaned main URL in the QR image</label>
+                      </div>
+                      <div class="form-text">The downloaded PNG and SVG will include the main URL at the bottom of the image.</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 field-group d-none" data-type="TEXT">
+                    <label for="text" class="form-label">Plain text</label>
+                    <textarea id="text" name="text" class="form-control" rows="3" placeholder="Your message, promo code, or note"></textarea>
+                  </div>
+
+                  <div class="field-group d-none" data-type="EMAIL">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="to" class="form-label">To</label>
+                        <input id="to" name="to" type="email" class="form-control" placeholder="user@example.com" autocomplete="email">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input id="subject" name="subject" type="text" class="form-control" placeholder="Subject line">
+                      </div>
+                      <div class="col-12">
+                        <label for="body" class="form-label">Message</label>
+                        <textarea id="body" name="body" class="form-control" rows="3" placeholder="Email body"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-group d-none" data-type="VCARD">
+                    <div class="row g-3">
+                      <div class="col-md-4">
+                        <label for="prefix" class="form-label">Prefix</label>
+                        <input id="prefix" name="prefix" type="text" class="form-control" placeholder="Dr.">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="fn" class="form-label">First name</label>
+                        <input id="fn" name="fn" type="text" class="form-control" placeholder="John">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="additionalNames" class="form-label">Additional</label>
+                        <input id="additionalNames" name="additionalNames" type="text" class="form-control" placeholder="Q.">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="ln" class="form-label">Last name</label>
+                        <input id="ln" name="ln" type="text" class="form-control" placeholder="Doe">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="suffix" class="form-label">Suffix</label>
+                        <input id="suffix" name="suffix" type="text" class="form-control" placeholder="Jr.">
+                      </div>
+                      <div class="col-md-8">
+                        <label for="formattedName" class="form-label">Formatted name</label>
+                        <input id="formattedName" name="formattedName" type="text" class="form-control" placeholder="Dr. John Q. Doe Jr.">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="org" class="form-label">Organization</label>
+                        <input id="org" name="org" type="text" class="form-control" placeholder="Acme Corp">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="title" class="form-label">Title</label>
+                        <input id="title" name="title" type="text" class="form-control" placeholder="CEO">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="telWork" class="form-label">Work tel</label>
+                        <input id="telWork" name="telWork" type="tel" class="form-control" placeholder="+1 555 123 4567">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="telCell" class="form-label">Cell</label>
+                        <input id="telCell" name="telCell" type="tel" class="form-control" placeholder="+1 555 987 6543">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="telFax" class="form-label">Fax</label>
+                        <input id="telFax" name="telFax" type="tel" class="form-control" placeholder="+1 555 555 1111">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="emailWork" class="form-label">Work email</label>
+                        <input id="emailWork" name="emailWork" type="email" class="form-control" placeholder="john.doe@company.com">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="emailHome" class="form-label">Home email</label>
+                        <input id="emailHome" name="emailHome" type="email" class="form-control" placeholder="john@example.com">
+                      </div>
+                      <div class="col-12">
+                        <label for="vcardUrl" class="form-label">Website</label>
+                        <input id="vcardUrl" name="vcardUrl" type="url" class="form-control" placeholder="https://your.website">
+                      </div>
+                      <div class="col-12"><label class="form-label">Address</label></div>
+                      <div class="col-md-6">
+                        <input id="adrStreet" name="adrStreet" type="text" class="form-control" placeholder="123 Main St">
+                      </div>
+                      <div class="col-md-6">
+                        <input id="adrCity" name="adrCity" type="text" class="form-control" placeholder="Metropolis">
+                      </div>
+                      <div class="col-md-4">
+                        <input id="adrRegion" name="adrRegion" type="text" class="form-control" placeholder="NY">
+                      </div>
+                      <div class="col-md-4">
+                        <input id="adrPostal" name="adrPostal" type="text" class="form-control" placeholder="10001">
+                      </div>
+                      <div class="col-md-4">
+                        <input id="adrCountry" name="adrCountry" type="text" class="form-control" placeholder="USA">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="bday" class="form-label">Birthday</label>
+                        <input id="bday" name="bday" type="date" class="form-control">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="note" class="form-label">Note</label>
+                        <textarea id="note" name="note" class="form-control" rows="2" placeholder="Available by appointment"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 field-group d-none" data-type="WIFI">
+                    <div class="row g-3">
+                      <div class="col-md-7">
+                        <label for="ssid" class="form-label">Network name</label>
+                        <input id="ssid" name="ssid" type="text" class="form-control" placeholder="Network Name">
+                      </div>
+                      <div class="col-md-5">
+                        <label for="enc" class="form-label">Encryption</label>
+                        <select id="enc" name="enc" class="form-select">
+                          <option value="WPA">WPA / WPA2</option>
+                          <option value="WEP">WEP</option>
+                          <option value="nopass">None</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label for="wifipw" class="form-label">Password</label>
+                        <input id="wifipw" name="wifipw" type="text" class="form-control" placeholder="Password">
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check form-switch">
+                          <input id="hidden" name="hidden" class="form-check-input" type="checkbox">
+                          <label class="form-check-label" for="hidden">Hidden SSID</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+                  <button class="btn btn-generate btn-lg flex-grow-1 flex-lg-grow-0">
+                    <i class="bi bi-qr-code me-2"></i> Create QR
+                  </button>
+                  <button type="button" id="btnCopyPayload" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-clipboard-check me-2"></i> Copy payload
+                  </button>
+                  <button type="button" id="btnCopyUrl" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-link-45deg me-2"></i> Copy URL
+                  </button>
+                </div>
+
+                <div class="generator-tools mt-4">
+                  <div class="section-heading mb-3">
+                    <span class="section-kicker">QR settings</span>
+                    <h3 class="h5 mb-1">Style, logo, and presets</h3>
+                    <p class="text-muted mb-0">Tune the QR appearance, add an optional logo, and save or reload a reusable preset.</p>
+                  </div>
+                  <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                      <label class="form-label" for="errorCorrection">Error correction</label>
+                      <select id="errorCorrection" class="form-select">
+                        <option value="L">L - Smallest</option>
+                        <option value="M" selected>M - Balanced</option>
+                        <option value="Q">Q - Safer</option>
+                        <option value="H">H - Highest</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="darkColor">QR color</label>
+                      <input id="darkColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose QR foreground color">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="bgColor">Background</label>
+                      <input id="bgColor" type="color" class="form-control form-control-color w-100" value="#ffffff" title="Choose QR background color">
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-check form-switch mt-4 pt-2">
+                        <input id="transparentBg" class="form-check-input" type="checkbox" checked>
+                        <label class="form-check-label" for="transparentBg">Transparent background</label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <label class="form-label" for="logoUpload">Logo overlay</label>
+                      <input id="logoUpload" type="file" class="form-control" accept="image/*">
+                      <div class="form-text">Optional. Keep the logo small for best scan reliability.</div>
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" id="clearLogoBtn" class="btn btn-outline-secondary w-100">Remove logo</button>
+                      <div id="logoName" class="small text-muted mt-2"></div>
+                    </div>
+                    <div class="col-md-8">
+                      <label class="form-label" for="presetName">Preset name</label>
+                      <input id="presetName" type="text" class="form-control" placeholder="Summer campaign 2026">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" id="savePresetBtn" class="btn btn-outline-primary w-100">Save preset</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div id="fields">
-              <!-- URL -->
-              <div class="mb-3 field-group" data-type="URL">
-                <label for="url" class="form-label">URL</label>
-                <input id="url" name="url" type="url" class="form-control" placeholder="https://example.com">
-              </div>
-              <!-- TEXT -->
-              <div class="mb-3 field-group d-none" data-type="TEXT">
-                <label for="text" class="form-label">Text</label>
-                <textarea id="text" name="text" class="form-control" rows="2" placeholder="Your message…"></textarea>
-              </div>
-              <!-- EMAIL -->
-              <div class="field-group d-none" data-type="EMAIL">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="to" class="form-label">To</label>
-                    <input id="to" name="to" type="email" class="form-control" placeholder="user@example.com">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="subject" class="form-label">Subject</label>
-                    <input id="subject" name="subject" type="text" class="form-control" placeholder="Subject">
-                  </div>
-                  <div class="col-12">
-                    <label for="body" class="form-label">Body</label>
-                    <textarea id="body" name="body" class="form-control" rows="2" placeholder="Email body…"></textarea>
-                  </div>
-                </div>
-              </div>
-              <!-- VCARD -->
-              <div class="field-group d-none" data-type="VCARD">
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <label for="prefix" class="form-label">Prefix</label>
-                    <input id="prefix" name="prefix" type="text" class="form-control" placeholder="Dr.">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="fn" class="form-label">First Name</label>
-                    <input id="fn" name="fn" type="text" class="form-control" placeholder="John">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="additionalNames" class="form-label">Additional</label>
-                    <input id="additionalNames" name="additionalNames" type="text" class="form-control" placeholder="Q.">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="ln" class="form-label">Last Name</label>
-                    <input id="ln" name="ln" type="text" class="form-control" placeholder="Doe">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="suffix" class="form-label">Suffix</label>
-                    <input id="suffix" name="suffix" type="text" class="form-control" placeholder="Jr.">
-                  </div>
-                  <div class="col-md-8">
-                    <label for="formattedName" class="form-label">Formatted Name</label>
-                    <input id="formattedName" name="formattedName" type="text" class="form-control" placeholder="Dr. John Q. Doe Jr.">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="org" class="form-label">Organization</label>
-                    <input id="org" name="org" type="text" class="form-control" placeholder="Acme Corp">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="title" class="form-label">Title</label>
-                    <input id="title" name="title" type="text" class="form-control" placeholder="CEO">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="telWork" class="form-label">Work Tel</label>
-                    <input id="telWork" name="telWork" type="tel" class="form-control" placeholder="+1 555 123 4567">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="telCell" class="form-label">Cell</label>
-                    <input id="telCell" name="telCell" type="tel" class="form-control" placeholder="+1 555 987 6543">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="telFax" class="form-label">Fax</label>
-                    <input id="telFax" name="telFax" type="tel" class="form-control" placeholder="+1 555 555 1111">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="emailWork" class="form-label">Work Email</label>
-                    <input id="emailWork" name="emailWork" type="email" class="form-control" placeholder="john.doe@company.com">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="emailHome" class="form-label">Home Email</label>
-                    <input id="emailHome" name="emailHome" type="email" class="form-control" placeholder="john@example.com">
-                  </div>
-                  <div class="col-12">
-                    <label for="vcardUrl" class="form-label">Website</label>
-                    <input id="vcardUrl" name="vcardUrl" type="url" class="form-control" placeholder="https://your.website">
-                  </div>
-                  <div class="col-12"><label class="form-label">Address</label></div>
-                  <div class="col-md-6">
-                    <input id="adrStreet" name="adrStreet" type="text" class="form-control" placeholder="123 Main St">
-                  </div>
-                  <div class="col-md-6">
-                    <input id="adrCity" name="adrCity" type="text" class="form-control" placeholder="Metropolis">
-                  </div>
-                  <div class="col-md-4">
-                    <input id="adrRegion" name="adrRegion" type="text" class="form-control" placeholder="NY">
-                  </div>
-                  <div class="col-md-4">
-                    <input id="adrPostal" name="adrPostal" type="text" class="form-control" placeholder="10001">
-                  </div>
-                  <div class="col-md-4">
-                    <input id="adrCountry" name="adrCountry" type="text" class="form-control" placeholder="USA">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="bday" class="form-label">Birthday</label>
-                    <input id="bday" name="bday" type="date" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="note" class="form-label">Note</label>
-                    <textarea id="note" name="note" class="form-control" rows="2" placeholder="Available by appointment…"></textarea>
-                  </div>
-                </div>
-              </div>
-              <!-- WIFI -->
-              <div class="mb-3 field-group d-none" data-type="WIFI">
-                <label for="ssid" class="form-label">SSID</label>
-                <input id="ssid" name="ssid" type="text" class="form-control" placeholder="Network Name">
-                <label for="wifipw" class="form-label mt-3">Password</label>
-                <input id="wifipw" name="wifipw" type="text" class="form-control" placeholder="Password">
-                <label for="enc" class="form-label mt-3">Encryption</label>
-                <select id="enc" name="enc" class="form-select">
-                  <option value="WPA">WPA/WPA2</option>
-                  <option value="WEP">WEP</option>
-                  <option value="nopass">None</option>
-                </select>
-                <div class="form-check form-switch mt-2">
-                  <input id="hidden" name="hidden" class="form-check-input" type="checkbox">
-                  <label class="form-check-label" for="hidden">Hidden SSID</label>
-                </div>
-              </div>
+          </div>
+        </section>
+
+        <aside class="col-lg-5">
+          <div class="card preview-card card-surface text-center p-4 p-lg-5 h-100 sticky-lg-top">
+            <div class="section-heading mb-3">
+              <span class="section-kicker">Preview</span>
+              <h2 class="h4 mb-2">See the code before you download</h2>
+              <p class="text-muted mb-0">The preview updates as you generate, so you can validate the result before sharing it.</p>
             </div>
-            <button class="btn btn-generate btn-lg w-100 mt-3">
-              <i class="bi bi-qr-code me-2"></i> Create QR
-            </button>
-          </form>
-        </div>
-      </section>
-      <!-- Preview -->
-      <aside class="col-lg-5">
-        <div class="card preview-card text-center p-4 h-100">
-          <h3 class="h5 fw-semibold text-primary mb-3">Live preview</h3>
-          <div class="qr-preview mb-3">
-            <div id="qrContainer"></div>
+            <div class="qr-preview mb-3">
+              <div id="qrContainer"></div>
+            </div>
+            <div class="status-chip mb-3" id="qrStatus">Add details to preview your QR code.</div>
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-3 d-none" id="downloadBtns">
+              <a id="btnPng" class="btn btn-outline-primary btn-sm" download="qr-code.png">
+                <i class="bi bi-file-image me-1"></i> PNG
+              </a>
+              <a id="btnSvg" class="btn btn-outline-primary btn-sm" download="qr-code.svg">
+                <i class="bi bi-filetype-svg me-1"></i> SVG
+              </a>
+            </div>
+            <p class="small text-muted mt-3 mb-0">Works with phone cameras, QR apps, menus, posters, packaging, and landing pages.</p>
           </div>
-          <div class="d-flex justify-content-center gap-3 mt-3" id="downloadBtns" style="display:none">
-            <a id="btnPng" class="btn btn-outline-primary btn-sm" download="qr-code.png">
-              <i class="bi bi-file-image me-1"></i> PNG
-            </a>
-            <a id="btnSvg" class="btn btn-outline-primary btn-sm" download="qr-code.svg">
-              <i class="bi bi-filetype-svg me-1"></i> SVG
-            </a>
-          </div>
-          <p class="small text-muted">Scan with your phone’s camera or QR app.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section-pad">
+      <div class="card-surface p-4 p-lg-5">
+        <div class="section-heading mb-3">
+          <span class="section-kicker">Recent presets</span>
+          <h2 class="h4 mb-2">Reload your last QR setups quickly</h2>
+          <p class="text-muted mb-0">Your recent presets are stored locally in the browser so you can switch campaigns without rebuilding the form.</p>
         </div>
-      </aside>
-    </div>
-    <!-- FAQ -->
-    <section class="mt-5">
-      <h2 class="h4 fw-semibold mb-3">Frequently Asked Questions</h2>
-      <div class="accordion" id="faq">
+        <div id="recentPresets" class="preset-strip"></div>
+      </div>
+    </section>
+
+    <section class="container feature-grid section-pad">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <article class="feature-card card-surface h-100">
+            <i class="bi bi-phone feature-icon"></i>
+            <h3>Mobile friendly</h3>
+            <p>Optimized for quick scans on product labels, storefronts, and event materials.</p>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="feature-card card-surface h-100">
+            <i class="bi bi-shield-lock feature-icon"></i>
+            <h3>Privacy first</h3>
+            <p>Everything is generated in the browser, which keeps user data off your server.</p>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="feature-card card-surface h-100">
+            <i class="bi bi-award feature-icon"></i>
+            <h3>Campaign ready</h3>
+            <p>Use it for marketing pages, menus, flyers, business cards, and packaging.</p>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="feature-card card-surface h-100">
+            <i class="bi bi-file-earmark-arrow-down feature-icon"></i>
+            <h3>Export options</h3>
+            <p>Download a transparent PNG for design tools or a scalable SVG for print.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad" id="how-it-works">
+      <div class="section-heading mb-4">
+        <span class="section-kicker">How it works</span>
+        <h2 class="h3 mb-2">A simple path from idea to scan</h2>
+        <p class="text-muted mb-0">Keep the flow short and obvious so more visitors can generate a QR code without friction.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="step-card card-surface h-100">
+            <div class="step-number">01</div>
+            <h3>Choose a format</h3>
+            <p>Select the type that matches your use case: URL, text, email, contact card, or Wi-Fi.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="step-card card-surface h-100">
+            <div class="step-number">02</div>
+            <h3>Add your details</h3>
+            <p>Enter just the fields you need and keep the payload clean for better scan reliability.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="step-card card-surface h-100">
+            <div class="step-number">03</div>
+            <h3>Download and share</h3>
+            <p>Export PNG or SVG, then place it on websites, packaging, posters, and social campaigns.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-5">
+          <div class="section-heading mb-3">
+            <span class="section-kicker">Use cases</span>
+            <h2 class="h3 mb-2">Built for traffic, engagement, and real-world scans</h2>
+            <p class="text-muted mb-0">Turn offline attention into online visits with QR codes that are easy to generate, easy to brand, and easy to scan.</p>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="use-case-list card-surface">
+            <span>Marketing landing pages</span>
+            <span>Restaurant menus</span>
+            <span>Event check-ins</span>
+            <span>Business cards</span>
+            <span>App installs</span>
+            <span>Wi-Fi sharing</span>
+            <span>Lead capture forms</span>
+            <span>Product packaging</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad">
+      <div class="section-heading mb-4">
+        <span class="section-kicker">Guide</span>
+        <h2 class="h3 mb-2">Practical QR code guidance for better scans and better traffic</h2>
+        <p class="text-muted mb-0">If you want QR codes to perform well in the real world, the destination, contrast, and placement matter as much as the design itself.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <article class="content-card card-surface h-100">
+            <h3>Start with the right destination</h3>
+            <p>Before you print or publish a code, make sure the link leads to a page that is fast, mobile-friendly, and specific to the scan intent. A QR code that sends visitors to a generic homepage often loses attention. For campaigns, use a dedicated landing page with one clear action, such as booking, subscribing, downloading, or contacting your team.</p>
+            <p>That simple focus improves the user experience and gives you a better chance of converting scans into measurable results. It also helps search engines and analytics tools understand the content behind the campaign.</p>
+          </article>
+        </div>
+        <div class="col-lg-6">
+          <article class="content-card card-surface h-100">
+            <h3>Use the format that matches the job</h3>
+            <p>URL QR codes are best for traffic and conversions. vCards work well for networking and local services. Wi-Fi QR codes reduce friction in shops, offices, and events. Text QR codes are useful for short notices, codes, and offline instructions. Choosing the right format keeps the scan experience simple and improves reliability.</p>
+            <p>When the destination is a website, the code should point to a page with a strong headline, a clean layout, and a single obvious next step. That makes the scan feel useful instead of promotional.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="tip-card card-surface h-100">
+            <h3>Keep contrast high</h3>
+            <p>Dark foreground on a light background is still the safest choice. Decorative colors can work, but the code must remain easy to detect in indoor light, sunlight, and camera previews.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="tip-card card-surface h-100">
+            <h3>Leave enough quiet space</h3>
+            <p>Every QR code needs breathing room around the edges. Crowding the symbol with borders, logos, or other objects can make scans unreliable on older phones and lower-quality prints.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="tip-card card-surface h-100">
+            <h3>Pick the right export</h3>
+            <p>Use PNG for quick sharing and web mockups. Use SVG for print, product packaging, and any design workflow where you need sharp scaling at different sizes.</p>
+          </article>
+        </div>
+        <div class="col-12">
+          <article class="content-card card-surface h-100">
+            <h3>Track scans with tags</h3>
+            <p>When you want to measure the performance of a QR campaign, add tags such as utm_source, utm_medium, and utm_campaign to the destination URL. Those parameters let analytics tools group traffic by campaign, placement, or audience so you can compare scans across posters, packaging, business cards, and events.</p>
+            <p>For the cleanest reporting, keep the destination URL focused on one action and use consistent naming across all printed materials. That makes it easier to understand which creative or placement produced the strongest results.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad">
+      <div class="content-banner card-surface">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-8">
+            <span class="section-kicker">About OneClickQR</span>
+            <h2 class="h3 mt-2 mb-3">A clean, privacy-first QR tool built for marketers, creators, and small businesses</h2>
+            <p class="mb-3">OneClickQR is designed to stay simple at the surface while still being useful for practical campaigns. It helps users generate QR codes quickly, preview the result before downloading, and save the output in formats that work across digital and print workflows.</p>
+            <p class="mb-0">Because generation happens in the browser, the tool is also a good fit for privacy-sensitive use cases. Visitors do not need to create an account or hand over personal data before they can create a code.</p>
+          </div>
+          <div class="col-lg-4">
+            <div class="content-banner-note">
+              <strong>Useful for:</strong>
+              <span>campaign pages, event materials, restaurant menus, business cards, packaging, and lead generation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad faq-section">
+      <div class="section-heading mb-4">
+        <span class="section-kicker">FAQ</span>
+        <h2 class="h3 mb-2">Questions people ask before they scan</h2>
+      </div>
+      <div class="accordion modern-accordion" id="faq">
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="accordion-button" data-bs-toggle="collapse"
-              data-bs-target="#faq1">Is this QR generator really free?</button>
+            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">Is OneClickQR really free?</button>
           </h3>
           <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
-            <div class="accordion-body">Yes—unlimited free static QR codes without signup.</div>
+            <div class="accordion-body">Yes. It is free to use and does not require an account to create or download QR codes.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">Does my data leave the browser?</button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body">No. The QR payload is processed client-side, so your input stays on your device.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Can I download both PNG and SVG?</button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body">Yes. PNG is ideal for quick sharing, while SVG is better for print and scalable design work.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">What can I encode?</button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body">You can generate QR codes for URLs, text, email, Wi-Fi credentials, and vCards for contacts.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">Can I track QR scans in Google Analytics?</button>
+          </h3>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body">Yes. Add UTM tags or other query parameters to the destination URL before generating the code. Your analytics platform will then record those visits like any other tagged campaign traffic.</div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer text-center py-4 bg-light border-top">
+  <footer class="footer text-center py-4">
     <div class="container small">
-      © 2025 OneClickQR · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a> · Made with <i class="bi bi-heart-fill text-danger"></i> in NYC.
+      <div class="footer-inner">
+        <span>Copyright © 2025 OneClickQR</span>
+        <span><a href="privacy.html">Privacy Policy</a></span>
+        <span><a href="terms.html">Terms</a></span>
+        <span><a href="sitemap.xml">Sitemap</a></span>
+      </div>
+      <div class="mt-2 text-muted">Made for fast scanning, better conversion, and simple sharing.</div>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
   <script src="js/bootstrap.bundle.min.js"></script>
-  <!-- App Logic -->
   <script src="js/app.js"></script>
 </body>
 
