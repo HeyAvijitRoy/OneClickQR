@@ -13,8 +13,42 @@
 * **Multiple Content Types**: URL, Text, Email, vCard, Wi-Fi.
 * **High-Resolution PNG**: Download at 1200×1200px with transparent background.
 * **SVG Download**: Vector output for infinite scaling.
-* **Customizable**: Easily restyle via CSS variables in `css/style.css`.
 * **Privacy-Focused**: All generation happens in-browser; user data never leaves the client.
+* **Campaign Tracking**: Build tracked URLs with UTM parameters for Google Analytics, GA4, LinkedIn, and Newsletter campaigns.
+* **Custom URL Parameters**: Add custom key-value pairs to tracked URLs.
+* **Logo Overlay**: Add custom logos/images to QR codes with auto-sizing.
+* **Color Customization**: Choose dark and light colors, or use transparent backgrounds.
+* **Error Correction**: Select error correction levels (L, M, Q, H) for different use cases.
+* **Text Labels**: Add optional labels below QR codes with auto-fitting text.
+* **Preset System**: Save and load QR generation presets for quick reuse.
+* **Customizable Theme**: Easily restyle via CSS variables in `css/style.css`.
+
+---
+
+## ✨ Advanced Features
+
+### Campaign Tracking & UTM Parameters
+Build tracked URLs with pre-configured campaign templates or custom parameters:
+* **Google Ads**: Optimized for Google Ads campaigns
+* **GA4**: Google Analytics 4 compatible parameters
+* **LinkedIn**: LinkedIn campaign tracking
+* **Newsletter**: Email newsletter tracking
+
+### Logo & Design Customization
+* Upload custom logos (PNG, JPG, SVG) to embed in QR codes
+* Customize QR code colors (dark and light)
+* Enable transparent backgrounds for flexible placement
+* Add optional labels below QR codes with automatic text scaling
+
+### Quality & Flexibility
+* **Error Correction Levels**: Choose between L (7%), M (15%), Q (25%), and H (30%)
+* **Multiple Output Formats**: Download as PNG (raster) or SVG (vector)
+* **Label Auto-Fitting**: Text automatically scales and wraps to fit QR code size
+
+### Presets & Workflow
+* Save frequently used QR configurations as presets
+* Quickly load recent presets for faster generation
+* Browser-based storage (no account needed)
 
 ---
 
