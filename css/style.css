@@ -303,6 +303,33 @@ h3,
   border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
+.generator-tabs {
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.generator-tabs .nav-item {
+  margin-bottom: -1px;
+}
+
+.generator-tabs .nav-link {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  border-radius: 0.85rem 0.85rem 0 0;
+  font-weight: 700;
+}
+
+.generator-tabs .nav-link:hover {
+  color: var(--ink);
+}
+
+.generator-tabs .nav-link.active {
+  color: var(--primary-dark);
+  background: rgba(91, 140, 255, 0.08);
+  border-bottom-color: var(--primary-dark);
+}
+
 .campaign-templates {
   padding: 1rem;
   border-radius: 1.25rem;

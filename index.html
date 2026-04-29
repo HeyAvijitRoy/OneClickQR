@@ -58,16 +58,6 @@
   </script>
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is OneClickQR free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. OneClickQR is free to use and generates static QR codes directly in your browser without signup."
-        }
       },
       {
         "@type": "Question",
@@ -170,20 +160,174 @@
                 <h2 class="h3 mb-2">Create a QR code in a few seconds</h2>
                 <p class="text-muted mb-0">Choose a content type, fill in the details, and download a clean, production-ready QR code.</p>
               </div>
+              <ul class="nav nav-tabs generator-tabs mb-4" id="generatorTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#mainPane" type="button" role="tab" aria-controls="mainPane" aria-selected="true">Main Generator</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="tracking-tab" data-bs-toggle="tab" data-bs-target="#trackingPane" type="button" role="tab" aria-controls="trackingPane" aria-selected="false">Campaign Tracking</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="customization-tab" data-bs-toggle="tab" data-bs-target="#customizationPane" type="button" role="tab" aria-controls="customizationPane" aria-selected="false">Customization</button>
+                </li>
+              </ul>
               <form id="qrForm" novalidate>
-                <div class="mb-4">
-                  <label class="form-label fw-semibold" for="type">Content type</label>
-                  <select id="type" class="form-select form-select-lg">
-                    <option value="URL">URL / Link</option>
-                    <option value="TEXT">Plain Text</option>
-                    <option value="EMAIL">Email</option>
-                    <option value="VCARD">vCard / Contact</option>
-                    <option value="WIFI">Wi-Fi</option>
-                  </select>
-                </div>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="mainPane" role="tabpanel" aria-labelledby="main-tab" tabindex="0">
+                    <div class="mb-4">
+                      <label class="form-label fw-semibold" for="type">Content type</label>
+                      <select id="type" class="form-select form-select-lg">
+                        <option value="URL">URL / Link</option>
+                        <option value="TEXT">Plain Text</option>
+                        <option value="EMAIL">Email</option>
+                        <option value="VCARD">vCard / Contact</option>
+                        <option value="WIFI">Wi-Fi</option>
+                      </select>
+                    </div>
 
-                <div id="fields">
-                  <div class="mb-3 field-group" data-type="URL">
+                    <div id="fields">
+                      <div class="mb-3 field-group" data-type="URL">
+                        <label for="url" class="form-label">Landing page or tracking link</label>
+                        <input id="url" name="url" type="url" class="form-control form-control-lg" placeholder="https://example.com" autocomplete="url">
+                      </div>
+
+                      <div class="mb-3 field-group d-none" data-type="TEXT">
+                        <label for="text" class="form-label">Plain text</label>
+                        <textarea id="text" name="text" class="form-control" rows="3" placeholder="Your message, promo code, or note"></textarea>
+                      </div>
+
+                      <div class="field-group d-none" data-type="EMAIL">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label for="to" class="form-label">To</label>
+                            <input id="to" name="to" type="email" class="form-control" placeholder="user@example.com" autocomplete="email">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input id="subject" name="subject" type="text" class="form-control" placeholder="Subject line">
+                          </div>
+                          <div class="col-12">
+                            <label for="body" class="form-label">Message</label>
+                            <textarea id="body" name="body" class="form-control" rows="3" placeholder="Email body"></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="field-group d-none" data-type="VCARD">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <label for="prefix" class="form-label">Prefix</label>
+                            <input id="prefix" name="prefix" type="text" class="form-control" placeholder="Dr.">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="fn" class="form-label">First name</label>
+                            <input id="fn" name="fn" type="text" class="form-control" placeholder="John">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="additionalNames" class="form-label">Additional</label>
+                            <input id="additionalNames" name="additionalNames" type="text" class="form-control" placeholder="Q.">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="ln" class="form-label">Last name</label>
+                            <input id="ln" name="ln" type="text" class="form-control" placeholder="Doe">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="suffix" class="form-label">Suffix</label>
+                            <input id="suffix" name="suffix" type="text" class="form-control" placeholder="Jr.">
+                          </div>
+                          <div class="col-md-8">
+                            <label for="formattedName" class="form-label">Formatted name</label>
+                            <input id="formattedName" name="formattedName" type="text" class="form-control" placeholder="Dr. John Q. Doe Jr.">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="org" class="form-label">Organization</label>
+                            <input id="org" name="org" type="text" class="form-control" placeholder="Acme Corp">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="title" class="form-label">Title</label>
+                            <input id="title" name="title" type="text" class="form-control" placeholder="CEO">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="telWork" class="form-label">Work tel</label>
+                            <input id="telWork" name="telWork" type="tel" class="form-control" placeholder="+1 555 123 4567">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="telCell" class="form-label">Cell</label>
+                            <input id="telCell" name="telCell" type="tel" class="form-control" placeholder="+1 555 987 6543">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="telFax" class="form-label">Fax</label>
+                            <input id="telFax" name="telFax" type="tel" class="form-control" placeholder="+1 555 555 1111">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="emailWork" class="form-label">Work email</label>
+                            <input id="emailWork" name="emailWork" type="email" class="form-control" placeholder="john.doe@company.com">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="emailHome" class="form-label">Home email</label>
+                            <input id="emailHome" name="emailHome" type="email" class="form-control" placeholder="john@example.com">
+                          </div>
+                          <div class="col-12">
+                            <label for="vcardUrl" class="form-label">Website</label>
+                            <input id="vcardUrl" name="vcardUrl" type="url" class="form-control" placeholder="https://your.website">
+                          </div>
+                          <div class="col-12"><label class="form-label">Address</label></div>
+                          <div class="col-md-6">
+                            <input id="adrStreet" name="adrStreet" type="text" class="form-control" placeholder="123 Main St">
+                          </div>
+                          <div class="col-md-6">
+                            <input id="adrCity" name="adrCity" type="text" class="form-control" placeholder="Metropolis">
+                          </div>
+                          <div class="col-md-4">
+                            <input id="adrRegion" name="adrRegion" type="text" class="form-control" placeholder="NY">
+                          </div>
+                          <div class="col-md-4">
+                            <input id="adrPostal" name="adrPostal" type="text" class="form-control" placeholder="10001">
+                          </div>
+                          <div class="col-md-4">
+                            <input id="adrCountry" name="adrCountry" type="text" class="form-control" placeholder="USA">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="bday" class="form-label">Birthday</label>
+                            <input id="bday" name="bday" type="date" class="form-control">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="note" class="form-label">Note</label>
+                            <textarea id="note" name="note" class="form-control" rows="2" placeholder="Available by appointment"></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 field-group d-none" data-type="WIFI">
+                        <div class="row g-3">
+                          <div class="col-md-7">
+                            <label for="ssid" class="form-label">Network name</label>
+                            <input id="ssid" name="ssid" type="text" class="form-control" placeholder="Network Name">
+                          </div>
+                          <div class="col-md-5">
+                            <label for="enc" class="form-label">Encryption</label>
+                            <select id="enc" name="enc" class="form-select">
+                              <option value="WPA">WPA / WPA2</option>
+                              <option value="WEP">WEP</option>
+                              <option value="nopass">None</option>
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <label for="wifipw" class="form-label">Password</label>
+                            <input id="wifipw" name="wifipw" type="text" class="form-control" placeholder="Password">
+                          </div>
+                          <div class="col-12">
+                            <div class="form-check form-switch">
+                              <input id="hidden" name="hidden" class="form-check-input" type="checkbox">
+                              <label class="form-check-label" for="hidden">Hidden SSID</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="trackingPane" role="tabpanel" aria-labelledby="tracking-tab" tabindex="0">
                     <div class="campaign-templates mb-4">
                       <div class="form-label fw-semibold mb-2">Campaign templates</div>
                       <div class="d-flex flex-wrap gap-2">
@@ -193,9 +337,7 @@
                         <button type="button" class="btn btn-outline-secondary btn-sm template-btn" data-template="newsletter">Newsletter</button>
                       </div>
                     </div>
-                    <label for="url" class="form-label">Landing page or tracking link</label>
-                    <input id="url" name="url" type="url" class="form-control form-control-lg" placeholder="https://example.com" autocomplete="url">
-                    <div class="form-check form-switch mt-3">
+                    <div class="form-check form-switch">
                       <input id="trackEnable" name="trackEnable" class="form-check-input" type="checkbox">
                       <label class="form-check-label fw-semibold" for="trackEnable">Add tracking tags to this URL</label>
                     </div>
@@ -231,149 +373,64 @@
                         </div>
                       </div>
                     </div>
-                    <div class="final-url-preview mt-3">
-                      <label for="finalUrlPreview" class="form-label fw-semibold">Final URL preview</label>
-                      <textarea id="finalUrlPreview" class="form-control final-url-box" rows="3" readonly placeholder="Your final URL will appear here."></textarea>
-                      <div class="form-text">This is the exact URL that will be encoded into the QR code.</div>
-                      <div class="form-check form-switch mt-3">
-                        <input id="embedMainUrl" name="embedMainUrl" class="form-check-input" type="checkbox">
-                        <label class="form-check-label fw-semibold" for="embedMainUrl">Embed the cleaned main URL in the QR image</label>
-                      </div>
-                      <div class="form-text">The downloaded PNG and SVG will include the main URL at the bottom of the image.</div>
-                    </div>
                   </div>
 
-                  <div class="mb-3 field-group d-none" data-type="TEXT">
-                    <label for="text" class="form-label">Plain text</label>
-                    <textarea id="text" name="text" class="form-control" rows="3" placeholder="Your message, promo code, or note"></textarea>
-                  </div>
-
-                  <div class="field-group d-none" data-type="EMAIL">
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label for="to" class="form-label">To</label>
-                        <input id="to" name="to" type="email" class="form-control" placeholder="user@example.com" autocomplete="email">
+                  <div class="tab-pane fade" id="customizationPane" role="tabpanel" aria-labelledby="customization-tab" tabindex="0">
+                    <div class="generator-tools mt-0">
+                      <div class="section-heading mb-3">
+                        <span class="section-kicker">QR settings</span>
+                        <h3 class="h5 mb-1">Style, logo, and presets</h3>
+                        <p class="text-muted mb-0">Tune the QR appearance, add an optional logo, and save or reload a reusable preset.</p>
                       </div>
-                      <div class="col-md-6">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input id="subject" name="subject" type="text" class="form-control" placeholder="Subject line">
-                      </div>
-                      <div class="col-12">
-                        <label for="body" class="form-label">Message</label>
-                        <textarea id="body" name="body" class="form-control" rows="3" placeholder="Email body"></textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="field-group d-none" data-type="VCARD">
-                    <div class="row g-3">
-                      <div class="col-md-4">
-                        <label for="prefix" class="form-label">Prefix</label>
-                        <input id="prefix" name="prefix" type="text" class="form-control" placeholder="Dr.">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="fn" class="form-label">First name</label>
-                        <input id="fn" name="fn" type="text" class="form-control" placeholder="John">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="additionalNames" class="form-label">Additional</label>
-                        <input id="additionalNames" name="additionalNames" type="text" class="form-control" placeholder="Q.">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="ln" class="form-label">Last name</label>
-                        <input id="ln" name="ln" type="text" class="form-control" placeholder="Doe">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="suffix" class="form-label">Suffix</label>
-                        <input id="suffix" name="suffix" type="text" class="form-control" placeholder="Jr.">
-                      </div>
-                      <div class="col-md-8">
-                        <label for="formattedName" class="form-label">Formatted name</label>
-                        <input id="formattedName" name="formattedName" type="text" class="form-control" placeholder="Dr. John Q. Doe Jr.">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="org" class="form-label">Organization</label>
-                        <input id="org" name="org" type="text" class="form-control" placeholder="Acme Corp">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="title" class="form-label">Title</label>
-                        <input id="title" name="title" type="text" class="form-control" placeholder="CEO">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="telWork" class="form-label">Work tel</label>
-                        <input id="telWork" name="telWork" type="tel" class="form-control" placeholder="+1 555 123 4567">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="telCell" class="form-label">Cell</label>
-                        <input id="telCell" name="telCell" type="tel" class="form-control" placeholder="+1 555 987 6543">
-                      </div>
-                      <div class="col-md-4">
-                        <label for="telFax" class="form-label">Fax</label>
-                        <input id="telFax" name="telFax" type="tel" class="form-control" placeholder="+1 555 555 1111">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="emailWork" class="form-label">Work email</label>
-                        <input id="emailWork" name="emailWork" type="email" class="form-control" placeholder="john.doe@company.com">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="emailHome" class="form-label">Home email</label>
-                        <input id="emailHome" name="emailHome" type="email" class="form-control" placeholder="john@example.com">
-                      </div>
-                      <div class="col-12">
-                        <label for="vcardUrl" class="form-label">Website</label>
-                        <input id="vcardUrl" name="vcardUrl" type="url" class="form-control" placeholder="https://your.website">
-                      </div>
-                      <div class="col-12"><label class="form-label">Address</label></div>
-                      <div class="col-md-6">
-                        <input id="adrStreet" name="adrStreet" type="text" class="form-control" placeholder="123 Main St">
-                      </div>
-                      <div class="col-md-6">
-                        <input id="adrCity" name="adrCity" type="text" class="form-control" placeholder="Metropolis">
-                      </div>
-                      <div class="col-md-4">
-                        <input id="adrRegion" name="adrRegion" type="text" class="form-control" placeholder="NY">
-                      </div>
-                      <div class="col-md-4">
-                        <input id="adrPostal" name="adrPostal" type="text" class="form-control" placeholder="10001">
-                      </div>
-                      <div class="col-md-4">
-                        <input id="adrCountry" name="adrCountry" type="text" class="form-control" placeholder="USA">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="bday" class="form-label">Birthday</label>
-                        <input id="bday" name="bday" type="date" class="form-control">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="note" class="form-label">Note</label>
-                        <textarea id="note" name="note" class="form-control" rows="2" placeholder="Available by appointment"></textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mb-3 field-group d-none" data-type="WIFI">
-                    <div class="row g-3">
-                      <div class="col-md-7">
-                        <label for="ssid" class="form-label">Network name</label>
-                        <input id="ssid" name="ssid" type="text" class="form-control" placeholder="Network Name">
-                      </div>
-                      <div class="col-md-5">
-                        <label for="enc" class="form-label">Encryption</label>
-                        <select id="enc" name="enc" class="form-select">
-                          <option value="WPA">WPA / WPA2</option>
-                          <option value="WEP">WEP</option>
-                          <option value="nopass">None</option>
-                        </select>
-                      </div>
-                      <div class="col-12">
-                        <label for="wifipw" class="form-label">Password</label>
-                        <input id="wifipw" name="wifipw" type="text" class="form-control" placeholder="Password">
-                      </div>
-                      <div class="col-12">
-                        <div class="form-check form-switch">
-                          <input id="hidden" name="hidden" class="form-check-input" type="checkbox">
-                          <label class="form-check-label" for="hidden">Hidden SSID</label>
+                      <div class="row g-3 align-items-end">
+                        <div class="col-md-3">
+                          <label class="form-label" for="errorCorrection">Error correction</label>
+                          <select id="errorCorrection" class="form-select">
+                            <option value="L">L - Smallest</option>
+                            <option value="M" selected>M - Balanced</option>
+                            <option value="Q">Q - Safer</option>
+                            <option value="H">H - Highest</option>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <label class="form-label" for="darkColor">QR color</label>
+                          <input id="darkColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose QR foreground color">
+                        </div>
+                        <div class="col-md-3">
+                          <label class="form-label" for="bgColor">Background</label>
+                          <input id="bgColor" type="color" class="form-control form-control-color w-100" value="#ffffff" title="Choose QR background color">
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-check form-switch mt-4 pt-2">
+                            <input id="transparentBg" class="form-check-input" type="checkbox" checked>
+                            <label class="form-check-label" for="transparentBg">Transparent background</label>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <label class="form-label" for="logoUpload">Logo overlay</label>
+                          <input id="logoUpload" type="file" class="form-control" accept="image/*">
+                          <div class="form-text">Optional. Keep the logo small for best scan reliability.</div>
+                        </div>
+                        <div class="col-md-4">
+                          <button type="button" id="clearLogoBtn" class="btn btn-outline-secondary w-100">Remove logo</button>
+                          <div id="logoName" class="small text-muted mt-2"></div>
+                        </div>
+                        <div class="col-md-8">
+                          <label class="form-label" for="presetName">Preset name</label>
+                          <input id="presetName" type="text" class="form-control" placeholder="Summer campaign 2026">
+                        </div>
+                        <div class="col-md-4">
+                          <button type="button" id="savePresetBtn" class="btn btn-outline-primary w-100">Save preset</button>
                         </div>
                       </div>
+                    </div>
+                    <div class="mt-4">
+                      <div class="section-heading mb-3">
+                        <span class="section-kicker">Recent presets</span>
+                        <h3 class="h5 mb-1">Reload your last QR setups quickly</h3>
+                        <p class="text-muted mb-0">Your recent presets are stored locally in the browser so you can switch campaigns without rebuilding the form.</p>
+                      </div>
+                      <div id="recentPresets" class="preset-strip"></div>
                     </div>
                   </div>
                 </div>
@@ -389,55 +446,6 @@
                     <i class="bi bi-link-45deg me-2"></i> Copy URL
                   </button>
                 </div>
-
-                <div class="generator-tools mt-4">
-                  <div class="section-heading mb-3">
-                    <span class="section-kicker">QR settings</span>
-                    <h3 class="h5 mb-1">Style, logo, and presets</h3>
-                    <p class="text-muted mb-0">Tune the QR appearance, add an optional logo, and save or reload a reusable preset.</p>
-                  </div>
-                  <div class="row g-3 align-items-end">
-                    <div class="col-md-3">
-                      <label class="form-label" for="errorCorrection">Error correction</label>
-                      <select id="errorCorrection" class="form-select">
-                        <option value="L">L - Smallest</option>
-                        <option value="M" selected>M - Balanced</option>
-                        <option value="Q">Q - Safer</option>
-                        <option value="H">H - Highest</option>
-                      </select>
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label" for="darkColor">QR color</label>
-                      <input id="darkColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose QR foreground color">
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label" for="bgColor">Background</label>
-                      <input id="bgColor" type="color" class="form-control form-control-color w-100" value="#ffffff" title="Choose QR background color">
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-check form-switch mt-4 pt-2">
-                        <input id="transparentBg" class="form-check-input" type="checkbox" checked>
-                        <label class="form-check-label" for="transparentBg">Transparent background</label>
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <label class="form-label" for="logoUpload">Logo overlay</label>
-                      <input id="logoUpload" type="file" class="form-control" accept="image/*">
-                      <div class="form-text">Optional. Keep the logo small for best scan reliability.</div>
-                    </div>
-                    <div class="col-md-4">
-                      <button type="button" id="clearLogoBtn" class="btn btn-outline-secondary w-100">Remove logo</button>
-                      <div id="logoName" class="small text-muted mt-2"></div>
-                    </div>
-                    <div class="col-md-8">
-                      <label class="form-label" for="presetName">Preset name</label>
-                      <input id="presetName" type="text" class="form-control" placeholder="Summer campaign 2026">
-                    </div>
-                    <div class="col-md-4">
-                      <button type="button" id="savePresetBtn" class="btn btn-outline-primary w-100">Save preset</button>
-                    </div>
-                  </div>
-                </div>
               </form>
             </div>
           </div>
@@ -452,6 +460,16 @@
             </div>
             <div class="qr-preview mb-3">
               <div id="qrContainer"></div>
+            </div>
+            <div class="final-url-preview mb-3 text-start">
+              <label for="finalUrlPreview" class="form-label fw-semibold">Final URL preview</label>
+              <textarea id="finalUrlPreview" class="form-control final-url-box" rows="3" readonly placeholder="Your final URL will appear here."></textarea>
+              <div class="form-text">This is the exact URL that will be encoded into the QR code.</div>
+              <div class="form-check form-switch mt-3">
+                <input id="embedMainUrl" name="embedMainUrl" class="form-check-input" type="checkbox">
+                <label class="form-check-label fw-semibold" for="embedMainUrl">Embed the cleaned main URL in the QR image</label>
+              </div>
+              <div class="form-text">The downloaded PNG and SVG will include the main URL at the bottom of the image.</div>
             </div>
             <div class="status-chip mb-3" id="qrStatus">Add details to preview your QR code.</div>
             <div class="d-flex flex-wrap justify-content-center gap-3 mt-3 d-none" id="downloadBtns">

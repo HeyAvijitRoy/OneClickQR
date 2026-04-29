@@ -192,6 +192,10 @@ function getQrStyle() {
   };
 }
 
+function getQrPadding(size) {
+  return Math.max(12, Math.round(size * 0.07));
+}
+
 function loadImageFromDataUrl(dataUrl) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -270,7 +274,7 @@ function buildLogoSvgMarkup(dataUrl, size) {
   `;
 }
 
-async function decorateCanvas(baseCanvas, size, style, labelText = '') {
+async function decorateCanvas(baseCanvas, size, style, labelText = '', qrPadding = 0) {
   const labelHeight = labelText ? Math.max(56, Math.round(size * 0.14)) : 0;
   const canvas = document.createElement('canvas');
   canvas.width = size;
@@ -286,7 +290,8 @@ async function decorateCanvas(baseCanvas, size, style, labelText = '') {
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  context.drawImage(baseCanvas, 0, 0, size, size);
+  const qrDrawSize = Math.max(32, size - qrPadding * 2);
+  context.drawImage(baseCanvas, qrPadding, qrPadding, qrDrawSize, qrDrawSize);
 
   if (logoDataUrl) {
     try {
@@ -341,24 +346,28 @@ function createBaseQrCanvas(text, size, style) {
 }
 
 async function createCanvasOutput(text, labelText, size, style) {
-  const baseCanvas = createBaseQrCanvas(text, size, style);
+  const qrPadding = getQrPadding(size);
+  const qrSize = Math.max(32, size - qrPadding * 2);
+  const baseCanvas = createBaseQrCanvas(text, qrSize, style);
   if (!baseCanvas) {
     return null;
   }
 
-  if (!labelText && !logoDataUrl) {
+  if (!labelText && !logoDataUrl && qrPadding <= 0) {
     return baseCanvas;
   }
 
-  return decorateCanvas(baseCanvas, size, style, labelText);
+  return decorateCanvas(baseCanvas, size, style, labelText, qrPadding);
 }
 
 function createSvgWithDecorations(text, labelText, size, style) {
+  const qrPadding = getQrPadding(size);
+  const qrSize = Math.max(32, size - qrPadding * 2);
   const svgString = new QRCodeSVG({
     content: text,
     padding: 0,
-    width: size,
-    height: size,
+    width: qrSize,
+    height: qrSize,
     color: style.darkColor,
     background: style.lightColor,
     ecl: style.errorCorrection || 'M'
@@ -391,7 +400,7 @@ function createSvgWithDecorations(text, labelText, size, style) {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size + labelHeight}" viewBox="0 0 ${size} ${size + labelHeight}">
-  <svg x="0" y="0" width="${size}" height="${size}" viewBox="${viewBox}">${innerMarkup}</svg>
+  <svg x="${qrPadding}" y="${qrPadding}" width="${qrSize}" height="${qrSize}" viewBox="${viewBox}">${innerMarkup}</svg>
   ${logoMarkup}
   ${textNodes}
 </svg>`;
@@ -474,8 +483,9 @@ function normalizeUrl(rawUrl) {
 
 function parseCustomParams(text) {
   const pairs = [];
+  const raw = typeof text === 'string' ? text : '';
 
-  text.split(/\r?\n/).forEach(line => {
+  raw.split(/\r?\n/).forEach(line => {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) {
       return;
