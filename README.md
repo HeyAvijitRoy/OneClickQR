@@ -94,6 +94,7 @@ OneClickQR/
 ├── favicon/            # Favicon files
 ├── privacy.html        # Privacy Policy
 ├── terms.html          # Terms of Use
+├── ads.txt             # Authorized AdSense seller
 ├── LICENSE             # MIT license for original OneClickQR work
 ├── THIRD_PARTY_NOTICES.md # Bundled library license notices
 └── README.md           # GitHub project overview
@@ -106,7 +107,7 @@ OneClickQR/
 * **Colors & Theme**: Adjust `--primary`, `--accent` in `css/style.css`.
 * **Favicons**: Replace files in `favicon/` and update links in `index.html`.
 * **Google Analytics**: The GA4 tag is included in the `index.html` head. Review consent behavior for the regions where the site is available.
-* **AdSense**: The AdSense loader is included in the `index.html` head.
+* **AdSense**: The AdSense loader is included in the `index.html` head. The root `ads.txt` authorizes this publisher ID. After deployment, confirm `https://oneclickqr.com/ads.txt` serves the file or redirects to `https://www.oneclickqr.com/ads.txt`; Google starts its crawl at the root domain.
 * **Privacy messages**: Configure and publish the appropriate consent messages in AdSense Privacy & messaging before serving ads where required. Google requires a certified consent management platform for personalized ads in the EEA, UK, and Switzerland. Review US state message settings where applicable.
 
 ---
