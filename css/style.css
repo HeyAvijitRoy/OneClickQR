@@ -303,6 +303,77 @@ h3,
   border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
+.design-panel {
+  padding: 1.15rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 1.15rem;
+  background: rgba(15, 23, 42, 0.025);
+}
+
+.design-panel + .design-panel {
+  margin-top: 0.75rem;
+}
+
+.design-panel-title {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.design-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.design-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.design-details > summary::after {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: '';
+  flex-shrink: 0;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.design-details[open] > summary::after {
+  transform: rotate(225deg);
+}
+
+.design-details > summary:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}
+
+.design-optional {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.design-details-body {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-details > summary::after {
+    transition: none;
+  }
+}
+
 .generator-tabs {
   gap: 0.5rem;
   border-bottom: 1px solid rgba(15, 23, 42, 0.12);
@@ -354,7 +425,7 @@ h3,
 }
 
 .preset-card {
-  min-width: 220px;
+  min-width: min(220px, 100%);
   flex: 1 1 220px;
   padding: 1rem;
   border-radius: 1.15rem;

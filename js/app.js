@@ -16,6 +16,12 @@ const errorCorrection = document.getElementById('errorCorrection');
 const darkColor = document.getElementById('darkColor');
 const bgColor = document.getElementById('bgColor');
 const transparentBg = document.getElementById('transparentBg');
+const moduleStyle = document.getElementById('moduleStyle');
+const eyeStyle = document.getElementById('eyeStyle');
+const eyeColor = document.getElementById('eyeColor');
+const frameStyle = document.getElementById('frameStyle');
+const frameColor = document.getElementById('frameColor');
+const exportSize = document.getElementById('exportSize');
 const logoUpload = document.getElementById('logoUpload');
 const clearLogoBtn = document.getElementById('clearLogoBtn');
 const logoName = document.getElementById('logoName');
@@ -189,11 +195,88 @@ function getQrStyle() {
     darkColor: darkColor.value || '#0f172a',
     lightColor: hasTransparentBackground ? 'rgba(0,0,0,0)' : (bgColor.value || '#ffffff'),
     transparentBackground: hasTransparentBackground,
+    moduleStyle: moduleStyle.value || 'square',
+    eyeStyle: eyeStyle.value || 'square',
+    eyeColor: eyeColor.value || darkColor.value || '#0f172a',
+    frameStyle: frameStyle.value || 'none',
+    frameColor: frameColor.value || darkColor.value || '#0f172a',
   };
 }
 
-function getQrPadding(size) {
-  return Math.max(12, Math.round(size * 0.07));
+function createQrMatrix(text, style) {
+  const host = document.createElement('div');
+  const qr = new QRCodeCanvas(host, {
+    text,
+    width: 1,
+    height: 1,
+    correctLevel: QRCodeCanvas.CorrectLevel[style.errorCorrection] || QRCodeCanvas.CorrectLevel.M,
+  });
+  return qr._oQRCode;
+}
+
+function getQrGeometry(size, count) {
+  const moduleSize = Math.max(1, Math.floor(size / (count + 8)));
+  const offset = Math.floor((size - count * moduleSize) / 2);
+  return { moduleSize, offset };
+}
+
+function isFinderCell(row, column, count) {
+  return (row < 7 && column < 7)
+    || (row < 7 && column >= count - 7)
+    || (row >= count - 7 && column < 7);
+}
+
+function drawQrShape(context, x, y, size, shape) {
+  if (shape === 'circle') {
+    context.beginPath();
+    context.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+    context.fill();
+  } else if (shape === 'rounded') {
+    roundRect(context, x, y, size, size, size * 0.22);
+    context.fill();
+  } else {
+    context.fillRect(x, y, size, size);
+  }
+}
+
+function drawFinderCanvas(context, x, y, moduleSize, style) {
+  context.fillStyle = style.eyeColor;
+  drawQrShape(context, x, y, moduleSize * 7, style.eyeStyle);
+
+  context.save();
+  context.globalCompositeOperation = style.transparentBackground ? 'destination-out' : 'source-over';
+  context.fillStyle = style.transparentBackground ? '#000000' : style.lightColor;
+  drawQrShape(context, x + moduleSize, y + moduleSize, moduleSize * 5, style.eyeStyle);
+  context.restore();
+
+  context.fillStyle = style.eyeColor;
+  drawQrShape(context, x + moduleSize * 2, y + moduleSize * 2, moduleSize * 3, style.eyeStyle);
+}
+
+function drawFrameCanvas(context, size, style) {
+  if (style.frameStyle === 'none') {
+    return;
+  }
+  const width = Math.max(2, Math.round(size * 0.008));
+  context.strokeStyle = style.frameColor;
+  context.lineWidth = width;
+  if (style.frameStyle === 'rounded') {
+    roundRect(context, width / 2, width / 2, size - width, size - width, size * 0.04);
+    context.stroke();
+  } else {
+    context.strokeRect(width / 2, width / 2, size - width, size - width);
+  }
+}
+
+function createJpegDataUrl(canvas, backgroundColor) {
+  const jpgCanvas = document.createElement('canvas');
+  jpgCanvas.width = canvas.width;
+  jpgCanvas.height = canvas.height;
+  const context = jpgCanvas.getContext('2d');
+  context.fillStyle = backgroundColor;
+  context.fillRect(0, 0, jpgCanvas.width, jpgCanvas.height);
+  context.drawImage(canvas, 0, 0);
+  return jpgCanvas.toDataURL('image/jpeg', 0.92);
 }
 
 function loadImageFromDataUrl(dataUrl) {
@@ -274,7 +357,7 @@ function buildLogoSvgMarkup(dataUrl, size) {
   `;
 }
 
-async function decorateCanvas(baseCanvas, size, style, labelText = '', qrPadding = 0) {
+async function decorateCanvas(baseCanvas, size, style, labelText = '') {
   const labelHeight = labelText ? Math.max(56, Math.round(size * 0.14)) : 0;
   const canvas = document.createElement('canvas');
   canvas.width = size;
@@ -290,8 +373,7 @@ async function decorateCanvas(baseCanvas, size, style, labelText = '', qrPadding
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  const qrDrawSize = Math.max(32, size - qrPadding * 2);
-  context.drawImage(baseCanvas, qrPadding, qrPadding, qrDrawSize, qrDrawSize);
+  context.drawImage(baseCanvas, 0, 0);
 
   if (logoDataUrl) {
     try {
@@ -310,7 +392,7 @@ async function decorateCanvas(baseCanvas, size, style, labelText = '', qrPadding
     const totalTextHeight = lines.length * lineHeight;
     const startY = size + Math.round((labelHeight - totalTextHeight) / 2) + fontSize;
 
-    context.fillStyle = '#0f172a';
+    context.fillStyle = style.darkColor;
     context.font = `${fontSize}px Inter, Arial, sans-serif`;
     context.textAlign = 'center';
     context.textBaseline = 'middle';
@@ -327,57 +409,114 @@ function getEmbedLabel(rawUrl) {
   return formatDisplayUrl(rawUrl);
 }
 
-function createBaseQrCanvas(text, size, style) {
-  const tmpDiv = document.createElement('div');
-  new QRCodeCanvas(tmpDiv, {
-    text,
-    width: size,
-    height: size,
-    correctLevel: QRCodeCanvas.CorrectLevel[style.errorCorrection] || QRCodeCanvas.CorrectLevel.M,
-    colorDark: style.darkColor,
-    colorLight: style.lightColor
-  });
-
-  const canvas = tmpDiv.querySelector('canvas');
-  if (canvas) {
-    canvas.style.display = 'block';
+function createBaseQrCanvas(matrix, size, style) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const context = canvas.getContext('2d');
+  if (!context) {
+    return null;
   }
+
+  if (!style.transparentBackground) {
+    context.fillStyle = style.lightColor;
+    context.fillRect(0, 0, size, size);
+  }
+
+  const count = matrix.getModuleCount();
+  const { moduleSize, offset } = getQrGeometry(size, count);
+  context.fillStyle = style.darkColor;
+  for (let row = 0; row < count; row += 1) {
+    for (let column = 0; column < count; column += 1) {
+      if (!matrix.isDark(row, column) || isFinderCell(row, column, count)) {
+        continue;
+      }
+      const x = offset + column * moduleSize;
+      const y = offset + row * moduleSize;
+      if (style.moduleStyle === 'dots' && moduleSize >= 4) {
+        drawQrShape(context, x + moduleSize * 0.04, y + moduleSize * 0.04, moduleSize * 0.92, 'circle');
+      } else if (style.moduleStyle === 'rounded' && moduleSize >= 4) {
+        drawQrShape(context, x, y, moduleSize, 'rounded');
+      } else {
+        context.fillRect(x, y, moduleSize, moduleSize);
+      }
+    }
+  }
+
+  const far = offset + (count - 7) * moduleSize;
+  drawFinderCanvas(context, offset, offset, moduleSize, style);
+  drawFinderCanvas(context, far, offset, moduleSize, style);
+  drawFinderCanvas(context, offset, far, moduleSize, style);
+  drawFrameCanvas(context, size, style);
   return canvas;
 }
 
-async function createCanvasOutput(text, labelText, size, style) {
-  const qrPadding = getQrPadding(size);
-  const qrSize = Math.max(32, size - qrPadding * 2);
-  const baseCanvas = createBaseQrCanvas(text, qrSize, style);
+async function createCanvasOutput(matrix, labelText, size, style) {
+  const baseCanvas = createBaseQrCanvas(matrix, size, style);
   if (!baseCanvas) {
     return null;
   }
 
-  if (!labelText && !logoDataUrl && qrPadding <= 0) {
+  if (!labelText && !logoDataUrl) {
     return baseCanvas;
   }
 
-  return decorateCanvas(baseCanvas, size, style, labelText, qrPadding);
+  return decorateCanvas(baseCanvas, size, style, labelText);
 }
 
-function createSvgWithDecorations(text, labelText, size, style) {
-  const qrPadding = getQrPadding(size);
-  const qrSize = Math.max(32, size - qrPadding * 2);
-  const svgString = new QRCodeSVG({
-    content: text,
-    padding: 0,
-    width: qrSize,
-    height: qrSize,
-    color: style.darkColor,
-    background: style.lightColor,
-    ecl: style.errorCorrection || 'M'
-  }).svg();
+function svgShapePath(x, y, size, shape) {
+  if (shape === 'circle') {
+    const radius = size / 2;
+    const centerX = x + radius;
+    const centerY = y + radius;
+    return `M ${centerX + radius} ${centerY} A ${radius} ${radius} 0 1 0 ${centerX - radius} ${centerY} A ${radius} ${radius} 0 1 0 ${centerX + radius} ${centerY} Z`;
+  }
+  if (shape === 'rounded') {
+    const radius = size * 0.22;
+    return `M ${x + radius} ${y} L ${x + size - radius} ${y} Q ${x + size} ${y} ${x + size} ${y + radius} L ${x + size} ${y + size - radius} Q ${x + size} ${y + size} ${x + size - radius} ${y + size} L ${x + radius} ${y + size} Q ${x} ${y + size} ${x} ${y + size - radius} L ${x} ${y + radius} Q ${x} ${y} ${x + radius} ${y} Z`;
+  }
+  return `M ${x} ${y} H ${x + size} V ${y + size} H ${x} Z`;
+}
 
-  const parser = new DOMParser();
-  const qrDoc = parser.parseFromString(svgString, 'image/svg+xml');
-  const qrRoot = qrDoc.documentElement;
-  const innerMarkup = qrRoot.innerHTML;
-  const viewBox = qrRoot.getAttribute('viewBox') || `0 0 ${size} ${size}`;
+function svgFinderMarkup(x, y, moduleSize, style) {
+  const outer = svgShapePath(x, y, moduleSize * 7, style.eyeStyle);
+  const inner = svgShapePath(x + moduleSize, y + moduleSize, moduleSize * 5, style.eyeStyle);
+  const center = svgShapePath(x + moduleSize * 2, y + moduleSize * 2, moduleSize * 3, style.eyeStyle);
+  return `<path d="${outer} ${inner}" fill="${style.eyeColor}" fill-rule="evenodd"/><path d="${center}" fill="${style.eyeColor}"/>`;
+}
+
+function createSvgWithDecorations(matrix, labelText, size, style) {
+  const count = matrix.getModuleCount();
+  const { moduleSize, offset } = getQrGeometry(size, count);
+  const modules = [];
+  for (let row = 0; row < count; row += 1) {
+    for (let column = 0; column < count; column += 1) {
+      if (!matrix.isDark(row, column) || isFinderCell(row, column, count)) {
+        continue;
+      }
+      const x = offset + column * moduleSize;
+      const y = offset + row * moduleSize;
+      if (style.moduleStyle === 'dots' && moduleSize >= 4) {
+        modules.push(`<circle cx="${x + moduleSize / 2}" cy="${y + moduleSize / 2}" r="${moduleSize * 0.46}"/>`);
+      } else if (style.moduleStyle === 'rounded' && moduleSize >= 4) {
+        modules.push(`<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}" rx="${moduleSize * 0.22}"/>`);
+      } else {
+        modules.push(`<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}"/>`);
+      }
+    }
+  }
+
+  const far = offset + (count - 7) * moduleSize;
+  const eyes = [
+    svgFinderMarkup(offset, offset, moduleSize, style),
+    svgFinderMarkup(far, offset, moduleSize, style),
+    svgFinderMarkup(offset, far, moduleSize, style),
+  ].join('');
+
+  const frameWidth = Math.max(2, Math.round(size * 0.008));
+  const frameRadius = style.frameStyle === 'rounded' ? size * 0.04 : 0;
+  const frameMarkup = style.frameStyle === 'none' ? ''
+    : `<rect x="${frameWidth / 2}" y="${frameWidth / 2}" width="${size - frameWidth}" height="${size - frameWidth}" rx="${frameRadius}" fill="none" stroke="${style.frameColor}" stroke-width="${frameWidth}"/>`;
 
   const labelHeight = labelText ? Math.max(56, Math.round(size * 0.14)) : 0;
   const textNodes = labelText
@@ -391,16 +530,21 @@ function createSvgWithDecorations(text, labelText, size, style) {
 
         return lines.map((line, index) => {
           const y = startY + index * lineHeight;
-          return `<text x="${size / 2}" y="${y}" text-anchor="middle" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="${fontSize}">${escapeXml(line)}</text>`;
+          return `<text x="${size / 2}" y="${y}" text-anchor="middle" fill="${style.darkColor}" font-family="Inter, Arial, sans-serif" font-size="${fontSize}">${escapeXml(line)}</text>`;
         }).join('');
       })()
     : '';
 
   const logoMarkup = buildLogoSvgMarkup(logoDataUrl, size);
+  const backgroundMarkup = style.transparentBackground ? ''
+    : `<rect width="${size}" height="${size + labelHeight}" fill="${style.lightColor}"/>`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size + labelHeight}" viewBox="0 0 ${size} ${size + labelHeight}">
-  <svg x="${qrPadding}" y="${qrPadding}" width="${qrSize}" height="${qrSize}" viewBox="${viewBox}">${innerMarkup}</svg>
+  ${backgroundMarkup}
+  <g fill="${style.darkColor}">${modules.join('')}</g>
+  ${eyes}
+  ${frameMarkup}
   ${logoMarkup}
   ${textNodes}
 </svg>`;
@@ -589,6 +733,12 @@ function getCurrentFormState() {
     darkColor: darkColor.value,
     bgColor: bgColor.value,
     transparentBg: transparentBg.checked,
+    moduleStyle: moduleStyle.value,
+    eyeStyle: eyeStyle.value,
+    eyeColor: eyeColor.value,
+    frameStyle: frameStyle.value,
+    frameColor: frameColor.value,
+    exportSize: exportSize.value,
     logoDataUrl,
     logoFileName,
   };
@@ -637,10 +787,17 @@ function applyFormState(state) {
   setFieldValue(errorCorrection, state.errorCorrection || 'M');
   setFieldValue(darkColor, state.darkColor || '#0f172a');
   setFieldValue(bgColor, state.bgColor || '#ffffff');
-  setFieldValue(transparentBg, typeof state.transparentBg === 'boolean' ? state.transparentBg : true);
+  setFieldValue(transparentBg, typeof state.transparentBg === 'boolean' ? state.transparentBg : false);
+  setFieldValue(moduleStyle, state.moduleStyle || 'square');
+  setFieldValue(eyeStyle, state.eyeStyle || 'square');
+  setFieldValue(eyeColor, state.eyeColor || darkColor.value);
+  setFieldValue(frameStyle, state.frameStyle || 'none');
+  setFieldValue(frameColor, state.frameColor || darkColor.value);
+  setFieldValue(exportSize, state.exportSize || '1200');
   logoDataUrl = state.logoDataUrl || '';
   logoFileName = state.logoFileName || '';
   logoName.textContent = logoFileName ? `Selected: ${logoFileName}` : '';
+  syncGeneratorUi();
   updateFinalUrlPreview();
   schedulePreviewUpdate();
 }
@@ -745,7 +902,8 @@ function renderQr() {
   const previewSize = 240;
 
   (async () => {
-    const previewCanvas = await createCanvasOutput(text, embedLabelText, previewSize, style);
+    const matrix = createQrMatrix(text, style);
+    const previewCanvas = await createCanvasOutput(matrix, embedLabelText, previewSize, style);
     if (renderId !== renderToken) {
       return;
     }
@@ -761,20 +919,25 @@ function renderQr() {
     previewImage.style.display = 'block';
     qrDiv.replaceChildren(previewImage);
 
-    const highResSize = 1200;
-    const highCanvas = await createCanvasOutput(text, embedLabelText, highResSize, style);
+    const highResSize = Number(exportSize.value) || 1200;
+    const highCanvas = await createCanvasOutput(matrix, embedLabelText, highResSize, style);
     if (renderId !== renderToken) {
       return;
     }
 
-    if (highCanvas) {
-      const pngHigh = highCanvas.toDataURL('image/png');
-      const btnPng = document.getElementById('btnPng');
-      btnPng.href = pngHigh;
-      btnPng.download = 'qr-code-1200.png';
+    if (!highCanvas) {
+      throw new Error('Unable to render the download image.');
     }
 
-    const svgStr = createSvgWithDecorations(text, embedLabelText, highResSize, style);
+    const btnPng = document.getElementById('btnPng');
+    btnPng.href = highCanvas.toDataURL('image/png');
+    btnPng.download = `qr-code-${highResSize}.png`;
+
+    const btnJpg = document.getElementById('btnJpg');
+    btnJpg.href = createJpegDataUrl(highCanvas, bgColor.value || '#ffffff');
+    btnJpg.download = `qr-code-${highResSize}.jpg`;
+
+    const svgStr = createSvgWithDecorations(matrix, embedLabelText, highResSize, style);
     if (currentSvgUrl) {
       URL.revokeObjectURL(currentSvgUrl);
     }
@@ -785,7 +948,7 @@ function renderQr() {
     btnSvg.download = 'qr-code.svg';
 
     downloadBtns.classList.remove('d-none');
-    setStatus('Ready to download as PNG or SVG.');
+    setStatus('Ready to download as PNG, JPG, or SVG.');
 
     if (window.innerWidth < 992) {
       previewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -805,7 +968,7 @@ function schedulePreviewUpdate() {
 
 function syncGeneratorUi() {
   trackingPanel.classList.toggle('d-none', !trackingEnable.checked);
-  bgColor.disabled = transparentBg.checked;
+  frameColor.disabled = frameStyle.value === 'none';
   updateFinalUrlPreview();
 }
 
@@ -828,6 +991,11 @@ embedMainUrl.addEventListener('change', () => {
 });
 
 transparentBg.addEventListener('change', () => {
+  syncGeneratorUi();
+  schedulePreviewUpdate();
+});
+
+frameStyle.addEventListener('change', () => {
   syncGeneratorUi();
   schedulePreviewUpdate();
 });

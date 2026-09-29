@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OneClickQR | Free QR Code Generator for URLs, Wi-Fi, vCards & More</title>
-  <meta name="description" content="Create modern QR codes in seconds with OneClickQR. Generate high-resolution PNG and SVG codes for links, text, email, Wi-Fi, and contact cards without signup or tracking." />
-  <meta name="keywords" content="QR code generator, free QR code maker, QR code for URL, Wi-Fi QR code, vCard QR code, SVG QR code, PNG QR download" />
+  <title>Free QR Code Generator for Links, Wi-Fi &amp; vCards | OneClickQR</title>
+  <meta name="description" content="Create QR codes for links, Wi-Fi, contacts, email, and text in your browser. Customize colors, eyes, logos, and frames; download PNG, JPG, or SVG without signup." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <meta name="application-name" content="OneClickQR" />
@@ -14,7 +13,7 @@
   <link rel="canonical" href="https://www.oneclickqr.com/" />
 
   <meta property="og:title" content="OneClickQR | Free QR Code Generator" />
-  <meta property="og:description" content="Generate polished, high-resolution QR codes for links, text, email, Wi-Fi and contact cards in seconds." />
+  <meta property="og:description" content="Create free QR codes for links, Wi-Fi, and contacts. Customize the design and download PNG, JPG, or SVG without signup." />
   <meta property="og:url" content="https://www.oneclickqr.com/" />
   <meta property="og:site_name" content="OneClickQR" />
   <meta property="og:type" content="website" />
@@ -24,7 +23,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="OneClickQR | Free QR Code Generator" />
-  <meta name="twitter:description" content="Create modern QR codes with PNG and SVG downloads, instant preview, and no signup required." />
+  <meta name="twitter:description" content="Create free QR codes for links, Wi-Fi, and contacts. Customize the design and download PNG, JPG, or SVG without signup." />
   <meta name="twitter:image" content="https://www.oneclickqr.com/assets/og-image.png" />
   <meta name="twitter:url" content="https://www.oneclickqr.com/" />
 
@@ -42,12 +41,25 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.oneclickqr.com/#website",
+    "name": "OneClickQR",
+    "url": "https://www.oneclickqr.com/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "WebApplication",
+    "@id": "https://www.oneclickqr.com/#app",
     "name": "OneClickQR",
     "url": "https://www.oneclickqr.com/",
-    "applicationCategory": "BusinessApplication",
+    "isPartOf": { "@id": "https://www.oneclickqr.com/#website" },
+    "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
-    "description": "A free client-side QR code generator for links, text, email, Wi-Fi, and contact cards.",
+    "description": "A free browser-based QR code generator for links, text, email, Wi-Fi, and contact cards with PNG, JPG, and SVG downloads.",
+    "isAccessibleForFree": true,
+    "featureList": ["QR codes for links, text, email, Wi-Fi, and contacts", "Custom colors, eyes, logos, and frames", "PNG, JPG, and SVG downloads"],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -57,29 +69,47 @@
   </script>
   <script type="application/ld+json">
   {
-      },
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
       {
         "@type": "Question",
-        "name": "Does the QR data leave my device?",
+        "name": "Is OneClickQR really free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. QR generation happens client-side, so your content stays in your browser."
+          "text": "Yes. It is free to use and does not require an account to create or download QR codes."
         }
       },
       {
         "@type": "Question",
-        "name": "Can I download PNG and SVG files?",
+        "name": "Does my data leave the browser?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. You can download a high-resolution PNG or a scalable SVG after generating a code."
+          "text": "No. The QR payload is processed client-side, so your input stays on your device."
         }
       },
       {
         "@type": "Question",
-        "name": "What can I encode in a QR code?",
+        "name": "Can I download PNG, JPG, and SVG?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can encode URLs, plain text, email messages, vCards, and Wi-Fi connection details."
+          "text": "Yes. JPG always has a solid background, PNG can be solid or transparent, and SVG stays sharp at any size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can I encode?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can generate QR codes for URLs, text, email, Wi-Fi credentials, and vCards for contacts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I track QR scans in Google Analytics?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Add UTM tags or other query parameters to the destination URL before generating the code. Your analytics platform will then record those visits like any other tagged campaign traffic."
         }
       }
     ]
@@ -90,12 +120,9 @@
   <script>
     window.QRCodeCanvas = window.QRCode;
   </script>
-  <script src="library/svg-qrcode.min.js"></script>
-  <script>
-    window.QRCodeSVG = window.QRCode;
-    window.QRCode = window.QRCodeCanvas;
-  </script>
 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4838535041379789"
+    crossorigin="anonymous"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PW41FKZWC4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -117,7 +144,7 @@
             <i class="bi bi-stars"></i>
             Free client-side QR generator
           </span>
-          <h1 class="display-4 fw-bold text-white mb-3">Make QR codes that look good and convert better.</h1>
+          <h1 class="display-4 fw-bold text-white mb-3">Free QR code generator for links, Wi-Fi, and more.</h1>
           <p class="hero-copy text-white-75 mb-4">
             Build polished QR codes for links, contact cards, Wi-Fi access, email, and plain text. OneClickQR gives you a modern preview, instant downloads, and privacy-first generation with no signup.
           </p>
@@ -131,7 +158,7 @@
           </div>
           <div class="hero-stats">
             <div class="stat-pill"><strong>100%</strong><span>Client-side</span></div>
-            <div class="stat-pill"><strong>PNG + SVG</strong><span>Instant download</span></div>
+            <div class="stat-pill"><strong>PNG + JPG + SVG</strong><span>Instant download</span></div>
             <div class="stat-pill"><strong>No signup</strong><span>Privacy-first</span></div>
           </div>
         </div>
@@ -167,7 +194,7 @@
                   <button class="nav-link" id="tracking-tab" data-bs-toggle="tab" data-bs-target="#trackingPane" type="button" role="tab" aria-controls="trackingPane" aria-selected="false">Campaign Tracking</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="customization-tab" data-bs-toggle="tab" data-bs-target="#customizationPane" type="button" role="tab" aria-controls="customizationPane" aria-selected="false">Customization</button>
+                  <button class="nav-link" id="customization-tab" data-bs-toggle="tab" data-bs-target="#customizationPane" type="button" role="tab" aria-controls="customizationPane" aria-selected="false">QR Design</button>
                 </li>
               </ul>
               <form id="qrForm" novalidate>
@@ -375,14 +402,24 @@
                   </div>
 
                   <div class="tab-pane fade" id="customizationPane" role="tabpanel" aria-labelledby="customization-tab" tabindex="0">
-                    <div class="generator-tools mt-0">
-                      <div class="section-heading mb-3">
-                        <span class="section-kicker">QR settings</span>
-                        <h3 class="h5 mb-1">Style, logo, and presets</h3>
-                        <p class="text-muted mb-0">Tune the QR appearance, add an optional logo, and save or reload a reusable preset.</p>
-                      </div>
-                      <div class="row g-3 align-items-end">
-                        <div class="col-md-3">
+                    <div class="section-heading mb-3">
+                      <span class="section-kicker">QR design</span>
+                      <h3 class="h5 mb-1">Make your code ready to share</h3>
+                      <p class="text-muted mb-0">Set the look and download size. Open the optional sections for more design choices.</p>
+                    </div>
+
+                    <section class="design-panel" aria-labelledby="designAppearanceTitle">
+                      <h4 id="designAppearanceTitle" class="design-panel-title">Appearance</h4>
+                      <div class="row g-3">
+                        <div class="col-sm-6">
+                          <label class="form-label" for="darkColor">QR color</label>
+                          <input id="darkColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose QR foreground color">
+                        </div>
+                        <div class="col-sm-6">
+                          <label class="form-label" for="bgColor">Background color</label>
+                          <input id="bgColor" type="color" class="form-control form-control-color w-100" value="#ffffff" title="Choose QR background color">
+                        </div>
+                        <div class="col-sm-6">
                           <label class="form-label" for="errorCorrection">Error correction</label>
                           <select id="errorCorrection" class="form-select">
                             <option value="L">L - Smallest</option>
@@ -391,46 +428,90 @@
                             <option value="H">H - Highest</option>
                           </select>
                         </div>
-                        <div class="col-md-3">
-                          <label class="form-label" for="darkColor">QR color</label>
-                          <input id="darkColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose QR foreground color">
-                        </div>
-                        <div class="col-md-3">
-                          <label class="form-label" for="bgColor">Background</label>
-                          <input id="bgColor" type="color" class="form-control form-control-color w-100" value="#ffffff" title="Choose QR background color">
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-check form-switch mt-4 pt-2">
-                            <input id="transparentBg" class="form-check-input" type="checkbox" checked>
-                            <label class="form-check-label" for="transparentBg">Transparent background</label>
+                        <div class="col-sm-6 d-flex align-items-center">
+                          <div class="form-check form-switch mb-0">
+                            <input id="transparentBg" class="form-check-input" type="checkbox">
+                            <label class="form-check-label" for="transparentBg">Transparent PNG / SVG</label>
                           </div>
                         </div>
-                        <div class="col-md-8">
-                          <label class="form-label" for="logoUpload">Logo overlay</label>
-                          <input id="logoUpload" type="file" class="form-control" accept="image/*">
-                          <div class="form-text">Optional. Keep the logo small for best scan reliability.</div>
+                      </div>
+                      <p class="form-text mb-0 mt-3">JPG always uses the background color shown above.</p>
+                    </section>
+
+                    <details class="design-panel design-details">
+                      <summary class="design-panel-title">Patterns, eyes, and frame <span class="design-optional">Optional</span></summary>
+                      <div class="design-details-body">
+                        <div class="row g-3">
+                          <div class="col-sm-6">
+                            <label class="form-label" for="moduleStyle">QR pattern</label>
+                            <select id="moduleStyle" class="form-select">
+                              <option value="square" selected>Square</option>
+                              <option value="rounded">Soft corners</option>
+                              <option value="dots">Dots</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-6">
+                            <label class="form-label" for="eyeStyle">Eye design</label>
+                            <select id="eyeStyle" class="form-select">
+                              <option value="square" selected>Square</option>
+                              <option value="rounded">Rounded</option>
+                              <option value="circle">Circle</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-6">
+                            <label class="form-label" for="eyeColor">Eye color</label>
+                            <input id="eyeColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose finder eye color">
+                          </div>
+                          <div class="col-sm-6">
+                            <label class="form-label" for="frameStyle">Frame</label>
+                            <select id="frameStyle" class="form-select">
+                              <option value="none" selected>None</option>
+                              <option value="square">Square outline</option>
+                              <option value="rounded">Rounded outline</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-6">
+                            <label class="form-label" for="frameColor">Frame color</label>
+                            <input id="frameColor" type="color" class="form-control form-control-color w-100" value="#0f172a" title="Choose frame color">
+                          </div>
                         </div>
-                        <div class="col-md-4">
-                          <button type="button" id="clearLogoBtn" class="btn btn-outline-secondary w-100">Remove logo</button>
-                          <div id="logoName" class="small text-muted mt-2"></div>
-                        </div>
-                        <div class="col-md-8">
-                          <label class="form-label" for="presetName">Preset name</label>
+                        <p class="form-text mb-0 mt-3">Keep the pattern and eyes dark against a light background, then test the download with a phone. Dense codes use square modules at small sizes.</p>
+                      </div>
+                    </details>
+
+                    <section class="design-panel" aria-labelledby="designExportTitle">
+                      <h4 id="designExportTitle" class="design-panel-title">Export size</h4>
+                      <label class="form-label" for="exportSize">Image width</label>
+                      <select id="exportSize" class="form-select">
+                        <option value="600">600 px</option>
+                        <option value="1200" selected>1200 px</option>
+                        <option value="1800">1800 px</option>
+                      </select>
+                    </section>
+
+                    <details class="design-panel design-details">
+                      <summary class="design-panel-title">Logo overlay <span class="design-optional">Optional</span></summary>
+                      <div class="design-details-body">
+                        <label class="form-label" for="logoUpload">Logo image</label>
+                        <input id="logoUpload" type="file" class="form-control" accept="image/*">
+                        <p class="form-text mb-2">Keep the logo small so the code remains easy to scan.</p>
+                        <div id="logoName" class="small text-muted mb-2"></div>
+                        <button type="button" id="clearLogoBtn" class="btn btn-outline-secondary btn-sm">Remove logo</button>
+                      </div>
+                    </details>
+
+                    <details class="design-panel design-details">
+                      <summary class="design-panel-title">Saved presets <span class="design-optional">Optional</span></summary>
+                      <div class="design-details-body">
+                        <label class="form-label" for="presetName">Preset name</label>
+                        <div class="d-flex flex-column flex-sm-row gap-2">
                           <input id="presetName" type="text" class="form-control" placeholder="Summer campaign 2026">
+                          <button type="button" id="savePresetBtn" class="btn btn-outline-primary flex-shrink-0">Save preset</button>
                         </div>
-                        <div class="col-md-4">
-                          <button type="button" id="savePresetBtn" class="btn btn-outline-primary w-100">Save preset</button>
-                        </div>
+                        <p class="form-text mb-3">Saved in this browser for quick reuse.</p>
+                        <div id="recentPresets" class="preset-strip"></div>
                       </div>
-                    </div>
-                    <div class="mt-4">
-                      <div class="section-heading mb-3">
-                        <span class="section-kicker">Recent presets</span>
-                        <h3 class="h5 mb-1">Reload your last QR setups quickly</h3>
-                        <p class="text-muted mb-0">Your recent presets are stored locally in the browser so you can switch campaigns without rebuilding the form.</p>
-                      </div>
-                      <div id="recentPresets" class="preset-strip"></div>
-                    </div>
+                    </details>
                   </div>
                 </div>
 
@@ -468,12 +549,15 @@
                 <input id="embedMainUrl" name="embedMainUrl" class="form-check-input" type="checkbox">
                 <label class="form-check-label fw-semibold" for="embedMainUrl">Embed the cleaned main URL in the QR image</label>
               </div>
-              <div class="form-text">The downloaded PNG and SVG will include the main URL at the bottom of the image.</div>
+              <div class="form-text">The downloaded PNG, JPG, and SVG will include the main URL at the bottom of the image.</div>
             </div>
             <div class="status-chip mb-3" id="qrStatus">Add details to preview your QR code.</div>
             <div class="d-flex flex-wrap justify-content-center gap-3 mt-3 d-none" id="downloadBtns">
               <a id="btnPng" class="btn btn-outline-primary btn-sm" download="qr-code.png">
                 <i class="bi bi-file-image me-1"></i> PNG
+              </a>
+              <a id="btnJpg" class="btn btn-outline-primary btn-sm" download="qr-code.jpg">
+                <i class="bi bi-file-image me-1"></i> JPG
               </a>
               <a id="btnSvg" class="btn btn-outline-primary btn-sm" download="qr-code.svg">
                 <i class="bi bi-filetype-svg me-1"></i> SVG
@@ -482,17 +566,6 @@
             <p class="small text-muted mt-3 mb-0">Works with phone cameras, QR apps, menus, posters, packaging, and landing pages.</p>
           </div>
         </aside>
-      </div>
-    </section>
-
-    <section class="container section-pad">
-      <div class="card-surface p-4 p-lg-5">
-        <div class="section-heading mb-3">
-          <span class="section-kicker">Recent presets</span>
-          <h2 class="h4 mb-2">Reload your last QR setups quickly</h2>
-          <p class="text-muted mb-0">Your recent presets are stored locally in the browser so you can switch campaigns without rebuilding the form.</p>
-        </div>
-        <div id="recentPresets" class="preset-strip"></div>
       </div>
     </section>
 
@@ -523,7 +596,7 @@
           <article class="feature-card card-surface h-100">
             <i class="bi bi-file-earmark-arrow-down feature-icon"></i>
             <h3>Export options</h3>
-            <p>Download a transparent PNG for design tools or a scalable SVG for print.</p>
+            <p>Download a PNG or JPG with a solid background, a transparent PNG, or a scalable SVG for print.</p>
           </article>
         </div>
       </div>
@@ -554,7 +627,36 @@
           <article class="step-card card-surface h-100">
             <div class="step-number">03</div>
             <h3>Download and share</h3>
-            <p>Export PNG or SVG, then place it on websites, packaging, posters, and social campaigns.</p>
+            <p>Export PNG, JPG, or SVG, then place it on websites, packaging, posters, and social campaigns.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-pad" aria-labelledby="qr-recipes-title">
+      <div class="section-heading mb-4">
+        <span class="section-kicker">Quick recipes</span>
+        <h2 class="h3 mb-2" id="qr-recipes-title">Create a QR code for Wi-Fi, contacts, or a link</h2>
+        <p class="text-muted mb-0">Choose a content type in the generator, then use these steps to prepare a code people can scan reliably.</p>
+        <a class="btn btn-outline-primary mt-3" href="#generator">Open the generator</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="content-card card-surface h-100">
+            <h3>Wi-Fi QR code</h3>
+            <p>Choose <strong>Wi-Fi</strong>, enter the network name, select its encryption, and add the password if needed. Download the code and test it with a phone before sharing it with guests.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="content-card card-surface h-100">
+            <h3>Contact QR code</h3>
+            <p>Choose <strong>vCard / Contact</strong> and add the name and contact details you want to share. Scan the finished code to check how the contact appears on a phone.</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="content-card card-surface h-100">
+            <h3>Branded link QR code</h3>
+            <p>Choose <strong>URL / Link</strong> and enter the destination. Open <strong>QR Design</strong> to adjust colors, eyes, frame, or logo. Keep strong contrast and test the exported code before printing.</p>
           </article>
         </div>
       </div>
@@ -620,7 +722,7 @@
         <div class="col-md-4">
           <article class="tip-card card-surface h-100">
             <h3>Pick the right export</h3>
-            <p>Use PNG for quick sharing and web mockups. Use SVG for print, product packaging, and any design workflow where you need sharp scaling at different sizes.</p>
+            <p>Use PNG for quick sharing or transparent placement, JPG when you need a solid background, and SVG for print or sharp scaling at different sizes.</p>
           </article>
         </div>
         <div class="col-12">
@@ -676,10 +778,10 @@
         </div>
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Can I download both PNG and SVG?</button>
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Can I download PNG, JPG, and SVG?</button>
           </h3>
           <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
-            <div class="accordion-body">Yes. PNG is ideal for quick sharing, while SVG is better for print and scalable design work.</div>
+            <div class="accordion-body">Yes. JPG always has a solid background, PNG can be solid or transparent, and SVG stays sharp at any size.</div>
           </div>
         </div>
         <div class="accordion-item">
@@ -706,7 +808,6 @@
     <div class="container small">
       <div class="footer-inner">
         <span>&copy; 2026 OneClickQR</span>
-        <span><a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener noreferrer" target="_blank">CC BY 4.0 License</a></span>
         <span><a href="privacy.html">Privacy Policy</a></span>
         <span><a href="terms.html">Terms</a></span>
         <span><a href="sitemap.xml">Sitemap</a></span>
